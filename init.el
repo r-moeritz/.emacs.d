@@ -1,6 +1,13 @@
 ;; -*- mode: Lisp; lexical-binding: t; -*-
 
 ;; ----------------------------------------------------------------------
+;;                              VARIABLES
+;; ----------------------------------------------------------------------
+
+(defconst package-contents-expiry-in-days 14
+  "Max allowed days since cached package.el archive contents last changed on disk")
+
+;; ----------------------------------------------------------------------
 ;;                            HELPER FUNCTIONS
 ;; ----------------------------------------------------------------------
 
@@ -54,6 +61,45 @@
     (global-set-key (kbd "\C-cu") (funcall gen-insert-key #xfc))
     (global-set-key (kbd "\C-ca") (funcall gen-insert-key #xe4))
     (global-set-key (kbd "\C-cs") (funcall gen-insert-key #xdf))))
+
+(defun required-package-names ()
+  "Returns a list of packages that should be installed if not present"
+  (list 'color-theme-solarized
+        'ace-jump-mode
+        'csharp-mode
+        'expand-region
+        'gnuplot-mode
+        'go-mode
+        'haskell-mode
+        'htmlize
+        'log4j-mode
+        'markdown-mode
+        'modeline-posn
+        'multi-web-mode
+        'nrepl
+        'paredit
+        'powershell-mode
+        'smex
+        'zencoding-mode))
+
+(defun package-contents-need-refresh ()
+  "Determine if cached package.el archive contents need to be refreshed"
+  (require 'calendar)
+  (let ((need-refresh))
+    (dolist (archive package-archives)
+      (let* ((dir (concat "archives/" (car archive)))
+             (contents-file (concat dir "/archive-contents"))
+             (filename (expand-file-name contents-file package-user-dir)))
+        (if (file-exists-p filename)
+            (let* ((attrs (file-attributes filename))
+                   (ctime (nth 6 attrs))
+                   (time-last-changed (format-time-string "%Y-%m-%d %T" ctime))
+                   (time-current (format-time-string "%Y-%m-%d %T" (current-time)))
+                   (days-since-last-changed (days-between time-current time-last-changed)))
+              (when (> days-since-last-changed package-contents-expiry-in-days)
+                (setf need-refresh t)))
+            (setf need-refresh t))))
+    need-refresh))
 
 ;; ----------------------------------------------------------------------
 ;;                            SETUP FUNCTIONS
@@ -152,33 +198,13 @@
   (add-to-list 'auto-mode-alist
              '("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode) t))
 
-(defun required-package-names ()
-  "Returns a list of packages that _should_ be installed"
-  (list 'color-theme-solarized
-        'ace-jump-mode
-        'csharp-mode
-        'expand-region
-        'gnuplot-mode
-        'go-mode
-        'haskell-mode
-        'htmlize
-        'log4j-mode
-        'markdown-mode
-        'modeline-posn
-        'multi-web-mode
-        'nrepl
-        'paredit
-        'powershell-mode
-        'smex
-        'zencoding-mode))
-
 (defun verify-required-packages ()
   "Verify that all required package.el packages are installed
 and install them if necessary"
   (package-initialize)
   (install-package-repos)
-  (package-refresh-contents)
-  
+  (when (package-contents-need-refresh)
+    (package-refresh-contents))
   (dolist (pkg (required-package-names))
     (unless (package-installed-p pkg)
       (package-install pkg))))
