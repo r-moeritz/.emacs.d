@@ -4,9 +4,6 @@
 ;;                              VARIABLES
 ;; ----------------------------------------------------------------------
 
-(defconst package-contents-expiry-in-days 14
-  "Max allowed days since cached package.el archive contents last changed on disk")
-
 (defvar required-package-names
   (list 'color-theme-solarized
         'ace-jump-mode
@@ -82,24 +79,16 @@
     (global-set-key (kbd "\C-ca") (funcall gen-insert-key #xe4))
     (global-set-key (kbd "\C-cs") (funcall gen-insert-key #xdf))))
 
-(defun package-contents-need-refresh ()
-  "Determine if cached package.el archive contents need to be refreshed"
-  (require 'calendar)
-  (let ((need-refresh))
+(defun package-contents-exist-p ()
+  "Determine if cached package.el archive contents exist."
+  (let ((exist-p t))
     (dolist (archive package-archives)
       (let* ((dir (concat "archives/" (car archive)))
              (contents-file (concat dir "/archive-contents"))
              (filename (expand-file-name contents-file package-user-dir)))
-        (if (file-exists-p filename)
-            (let* ((attrs (file-attributes filename))
-                   (ctime (nth 6 attrs))
-                   (time-last-changed (format-time-string "%Y-%m-%d %T" ctime))
-                   (time-current (format-time-string "%Y-%m-%d %T" (current-time)))
-                   (days-since-last-changed (days-between time-current time-last-changed)))
-              (when (> days-since-last-changed package-contents-expiry-in-days)
-                (setq need-refresh t)))
-            (setq need-refresh t))))
-    need-refresh))
+        (unless (file-exists-p filename)
+          (setq exist-p nil))))
+    exist-p))
 
 ;; ----------------------------------------------------------------------
 ;;                            SETUP FUNCTIONS
@@ -203,7 +192,7 @@
 and install them if necessary"
   (package-initialize)
   (install-package-archives)
-  (when (package-contents-need-refresh)
+  (unless (package-contents-exist-p)
     (package-refresh-contents))
   (dolist (pkg required-package-names)
     (unless (package-installed-p pkg)
