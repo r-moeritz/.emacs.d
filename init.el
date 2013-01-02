@@ -7,14 +7,34 @@
 (defconst package-contents-expiry-in-days 14
   "Max allowed days since cached package.el archive contents last changed on disk")
 
-;; ----------------------------------------------------------------------
-;;                            HELPER FUNCTIONS
-;; ----------------------------------------------------------------------
+(defvar required-package-names
+  (list 'color-theme-solarized
+        'ace-jump-mode
+        'csharp-mode
+        'expand-region
+        'gnuplot-mode
+        'go-mode
+        'haskell-mode
+        'htmlize
+        'log4j-mode
+        'markdown-mode
+        'modeline-posn
+        'multi-web-mode
+        'nrepl
+        'paredit
+        'powershell-mode
+        'smex
+        'zencoding-mode)
+  "List of package.el packages that should be installed if not present")
 
 (defvar electrify-return-match
   "[\]}\)\"]"
   "If this regexp matches the text after the cursor, do an \"electric\"
   return.")
+
+;; ----------------------------------------------------------------------
+;;                            HELPER FUNCTIONS
+;; ----------------------------------------------------------------------
 
 (defun electrify-return-if-match (arg)
   "If the text after the cursor matches `electrify-return-match' then
@@ -61,26 +81,6 @@
     (global-set-key (kbd "\C-cu") (funcall gen-insert-key #xfc))
     (global-set-key (kbd "\C-ca") (funcall gen-insert-key #xe4))
     (global-set-key (kbd "\C-cs") (funcall gen-insert-key #xdf))))
-
-(defun required-package-names ()
-  "Returns a list of packages that should be installed if not present"
-  (list 'color-theme-solarized
-        'ace-jump-mode
-        'csharp-mode
-        'expand-region
-        'gnuplot-mode
-        'go-mode
-        'haskell-mode
-        'htmlize
-        'log4j-mode
-        'markdown-mode
-        'modeline-posn
-        'multi-web-mode
-        'nrepl
-        'paredit
-        'powershell-mode
-        'smex
-        'zencoding-mode))
 
 (defun package-contents-need-refresh ()
   "Determine if cached package.el archive contents need to be refreshed"
@@ -205,7 +205,7 @@ and install them if necessary"
   (install-package-repos)
   (when (package-contents-need-refresh)
     (package-refresh-contents))
-  (dolist (pkg (required-package-names))
+  (dolist (pkg required-package-names)
     (unless (package-installed-p pkg)
       (package-install pkg))))
 
