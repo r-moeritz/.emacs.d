@@ -97,8 +97,8 @@
                    (time-current (format-time-string "%Y-%m-%d %T" (current-time)))
                    (days-since-last-changed (days-between time-current time-last-changed)))
               (when (> days-since-last-changed package-contents-expiry-in-days)
-                (setf need-refresh t)))
-            (setf need-refresh t))))
+                (setq need-refresh t)))
+            (setq need-refresh t))))
     need-refresh))
 
 ;; ----------------------------------------------------------------------
