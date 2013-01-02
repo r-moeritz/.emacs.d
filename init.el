@@ -161,8 +161,8 @@
   (add-to-list 'auto-mode-alist
 	       '("\\.\\(md\\|markdown\\|post\\)$" . markdown-mode) t))
 
-(defun install-package-repos ()
-  "add package.el repositories"
+(defun install-package-archives ()
+  "add package.el archives"
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.milkbox.net/packages/") t))
 
@@ -202,7 +202,7 @@
   "Verify that all required package.el packages are installed
 and install them if necessary"
   (package-initialize)
-  (install-package-repos)
+  (install-package-archives)
   (when (package-contents-need-refresh)
     (package-refresh-contents))
   (dolist (pkg required-package-names)
