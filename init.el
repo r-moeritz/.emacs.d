@@ -109,12 +109,13 @@
   "setup org-mode"
   (add-to-list 'auto-mode-alist
 	       '("\\.org$" . org-mode) t)
+  (setq org-log-done t 
+        org-src-fontify-natively t
+        org-insert-mode-line-in-empty-file t)
   (add-hook 'org-mode-hook
             (lambda ()
               (local-set-key (kbd "\C-cl") 'org-store-link)
-              (local-set-key (kbd "\C-ca") 'org-agenda)
-              (setq org-log-done t 
-                    org-src-fontify-natively t))))
+              (local-set-key (kbd "\C-ca") 'org-agenda))))
 
 (defun setup-server ()
    "start server, suppressing error 'directory ~/.emacs.d/server is unsafe' on windows" 
