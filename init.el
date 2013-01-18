@@ -133,7 +133,9 @@
   (add-hook 'text-mode-hook 'turn-on-auto-fill)     ;; enable auto-fill in text-mode
   (global-set-font "Consolas-11:antialias=natural") ;; global font
   (put 'erase-buffer 'disabled nil)                 ;; enable erase-buffer
-  (winner-mode 1))                                  ;; winner mode FTW
+  (winner-mode 1)                                   ;; winner mode FTW
+  (put 'upcase-region 'disabled nil)                ;; enable upcase-region
+  )                                  
 
 (defun setup-tramp ()
   (setq tramp-default-method "plink")
@@ -242,3 +244,4 @@ and install them if necessary"
 (init-vanilla)
 (init-package)
 (init-local)
+
