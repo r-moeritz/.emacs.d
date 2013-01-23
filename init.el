@@ -1,4 +1,4 @@
-;; -*- mode: Lisp; lexical-binding: t; -*-
+;; -*- mode: emacs-lisp; lexical-binding: t; -*-
 
 ;; ----------------------------------------------------------------------
 ;;                              VARIABLES
@@ -21,7 +21,9 @@
         'paredit
         'powershell-mode
         'smex
-        'zencoding-mode)
+        'zencoding-mode
+        'fsharp-mode)
+  
   "List of package.el packages that should be installed if not present")
 
 (defvar electrify-return-match
@@ -190,6 +192,10 @@
   (add-to-list 'auto-mode-alist
              '("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode) t))
 
+(defun setup-fsharp-mode ()
+  (setq inferior-fsharp-program "\"c:\\Program Files (x86)\\Microsoft F#\\v4.0\\Fsi.exe\"")
+  (setq fsharp-compiler "\"c:\\Program Files (x86)\\Microsoft F#\\v4.0\\Fsc.exe\""))
+
 (defun verify-required-packages ()
   "Verify that all required package.el packages are installed
 and install them if necessary"
@@ -231,6 +237,7 @@ and install them if necessary"
   (setup-markdown-mode)
   (setup-multi-web)
   (setup-gnuplot-mode)
+  (setup-fsharp-mode)
   
   ;; global keyboard shortcuts
   (global-set-key (kbd "C-=") 'er/expand-region)
