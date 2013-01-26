@@ -193,8 +193,8 @@
              '("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode) t))
 
 (defun setup-fsharp-mode ()
-  (setq inferior-fsharp-program "\"c:\\Program Files (x86)\\Microsoft F#\\v4.0\\Fsi.exe\"")
-  (setq fsharp-compiler "\"c:\\Program Files (x86)\\Microsoft F#\\v4.0\\Fsc.exe\""))
+  (setq inferior-fsharp-program "\"C:\\Program Files (x86)\\Microsoft SDKs\\F#\\3.0\\Framework\\v4.0\\fsi.exe\"")
+  (setq fsharp-compiler "\"C:\\Program Files (x86)\\Microsoft SDKs\\F#\\3.0\\Framework\\v4.0\\fsc.exe\""))
 
 (defun verify-required-packages ()
   "Verify that all required package.el packages are installed
