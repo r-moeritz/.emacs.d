@@ -22,8 +22,9 @@
         'powershell-mode
         'smex
         'zencoding-mode
-        'fsharp-mode)
-  
+        'fsharp-mode
+        'python
+        ) 
   "List of package.el packages that should be installed if not present")
 
 (defvar electrify-return-match
