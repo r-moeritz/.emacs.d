@@ -24,6 +24,7 @@
         'zencoding-mode
         'fsharp-mode
         'python
+        'graphviz-dot-mode
         ) 
   "List of package.el packages that should be installed if not present")
 
