@@ -135,7 +135,7 @@
   (setq-default indent-tabs-mode nil)               ;; no tabs please
   (prefer-coding-system 'utf-8)                     ;; prefer utf-8
   (add-hook 'text-mode-hook 'turn-on-auto-fill)     ;; enable auto-fill in text-mode
-  (global-set-font "Consolas-11:antialias=natural") ;; global font
+  (global-set-font "DejaVu Sans Mono-11:antialias=natural") ;; global font
   (put 'erase-buffer 'disabled nil)                 ;; enable erase-buffer
   (winner-mode 1)                                   ;; winner mode FTW
   (put 'upcase-region 'disabled nil)                ;; enable upcase-region

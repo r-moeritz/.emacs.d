@@ -1,6 +1,28 @@
-;; -*- emacs-lisp -*- <12/12/11 12:35:17 c:/Users/Ralph/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <13/02/08 01:25:17 c:/Users/Ralph/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
-((["plink" "coleslaw" "blub.co.za" nil]
-  nil))
+((["plink" "chessrank" "192.168.56.10" nil]
+  ("uname" "Linux 3.2.0-23-generic")
+  ("test" "test")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/usr/sbin" "/usr/local/bin"))
+  ("remote-shell" "/bin/sh")
+  ("busybox" nil)
+  ("~" "/home/chessrank")
+  ("file-exists" "test -e")
+  ("perl-file-spec" t)
+  ("perl-cwd-realpath" t)
+  ("perl" "\\perl")
+  ("readlink" "\\readlink")
+  ("stat" "\\stat")
+  ("ls" "/bin/ls --color=never")
+  ("id" "/usr/bin/id")
+  ("gid-string" "chessrank")
+  ("gid-integer" 1000)
+  ("uid-integer" 1000)
+  ("local-encoding" base64-encode-region)
+  ("local-decoding" base64-decode-region)
+  ("remote-encoding" "base64")
+  ("remote-decoding" "base64 -d -i")
+  ("trash" nil)))
