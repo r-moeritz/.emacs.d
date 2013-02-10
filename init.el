@@ -115,7 +115,8 @@
 	       '("\\.org$" . org-mode) t)
   (setq org-log-done t 
         org-src-fontify-natively t
-        org-insert-mode-line-in-empty-file t)
+        org-insert-mode-line-in-empty-file t
+        org-pretty-entities t)
   (add-hook 'org-mode-hook
             (lambda ()
               (local-set-key (kbd "\C-cl") 'org-store-link)
