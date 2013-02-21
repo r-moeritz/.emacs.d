@@ -25,6 +25,7 @@
         'fsharp-mode
         'python
         'graphviz-dot-mode
+        'auto-complete
         ) 
   "List of package.el packages that should be installed if not present")
 
@@ -210,6 +211,10 @@ and install them if necessary"
     (unless (package-installed-p pkg)
       (package-install pkg))))
 
+(defun setup-auto-complete ()
+  (require 'auto-complete-config)
+  (ac-config-default))
+
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
 ;; ----------------------------------------------------------------------
@@ -241,6 +246,7 @@ and install them if necessary"
   (setup-multi-web)
   (setup-gnuplot-mode)
   (setup-fsharp-mode)
+  (setup-auto-complete)
   
   ;; global keyboard shortcuts
   (global-set-key (kbd "C-=") 'er/expand-region)
