@@ -215,6 +215,13 @@ and install them if necessary"
   (require 'auto-complete-config)
   (ac-config-default))
 
+(defun setup-gambit-c ()
+  (autoload 'gambit-inferior-mode "gambit" "Hook Gambit mode into cmuscheme.")
+  (autoload 'gambit-mode "gambit" "Hook Gambit mode into scheme.")
+  (add-hook 'inferior-scheme-mode-hook (function gambit-inferior-mode))
+  (add-hook 'scheme-mode-hook (function gambit-mode))
+  (setq scheme-program-name "gsi -:d-"))
+
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
 ;; ----------------------------------------------------------------------
@@ -255,7 +262,8 @@ and install them if necessary"
 (defun init-local ()
   "startup code that relies on local customizations"
   (load (expand-file-name "~/quicklisp/slime-helper.el"))
-  (setq inferior-lisp-program "c:/ccl/wx86cl.exe"))
+  (setq inferior-lisp-program "c:/ccl/wx86cl.exe")
+  (setup-gambit-c))
 
 (init-vanilla)
 (init-package)
