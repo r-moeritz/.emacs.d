@@ -108,6 +108,7 @@
              (show-paren-mode t)
              (local-set-key (kbd "RET") 'electrify-return-if-match)))))
     (add-hook 'emacs-lisp-mode-hook (funcall gen-enable-paredit))
+    (add-hook 'scheme-mode-hook (funcall gen-enable-paredit))
     (add-hook 'lisp-mode-hook (funcall gen-enable-paredit))))
 
 (defun setup-org-mode ()
