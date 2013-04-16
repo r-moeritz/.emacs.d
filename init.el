@@ -134,14 +134,15 @@
 
 (defun set-preferences ()
   "misc preferences"
-  (setq inhibit-startup-message t)                  ;; disable annoying splash screen
-  (setq-default indent-tabs-mode nil)               ;; no tabs please
-  (prefer-coding-system 'utf-8)                     ;; prefer utf-8
-  (add-hook 'text-mode-hook 'turn-on-auto-fill)     ;; enable auto-fill in text-mode
+  (setq inhibit-startup-message t)                          ;; no splash screen
+  (setq-default indent-tabs-mode nil)                       ;; no tabs please
+  (prefer-coding-system 'utf-8)                             ;; prefer utf-8
+  (add-hook 'text-mode-hook 'turn-on-auto-fill)             ;; auto-fill in text-mode
   (global-set-font "DejaVu Sans Mono-11:antialias=natural") ;; global font
-  (put 'erase-buffer 'disabled nil)                 ;; enable erase-buffer
-  (winner-mode 1)                                   ;; winner mode FTW
-  (put 'upcase-region 'disabled nil)                ;; enable upcase-region
+  (put 'erase-buffer 'disabled nil)                         ;; enable erase-buffer
+  (winner-mode 1)                                           ;; winner mode FTW
+  (put 'upcase-region 'disabled nil)                        ;; enable upcase-region
+  (setq-default fill-column 79)                             ;; fill at col 79
   )                                  
 
 (defun setup-tramp ()
