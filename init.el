@@ -26,6 +26,7 @@
         'python
         'graphviz-dot-mode
         'auto-complete
+        'elpy
         ) 
   "List of package.el packages that should be installed if not present")
 
@@ -256,6 +257,7 @@ and install them if necessary"
   (setup-gnuplot-mode)
   (setup-fsharp-mode)
   (setup-auto-complete)
+  (elpy-enable)
   
   ;; global keyboard shortcuts
   (global-set-key (kbd "C-=") 'er/expand-region)
