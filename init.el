@@ -101,7 +101,7 @@
 ;; ----------------------------------------------------------------------
 
 (defun setup-paredit ()
-  "Enable paredit for Elisp and Common Lisp."
+  "Enable paredit for our Lisps."
   (let ((gen-enable-paredit
          (lambda () 
            (lambda ()
@@ -110,7 +110,8 @@
              (local-set-key (kbd "RET") 'electrify-return-if-match)))))
     (add-hook 'emacs-lisp-mode-hook (funcall gen-enable-paredit))
     (add-hook 'scheme-mode-hook (funcall gen-enable-paredit))
-    (add-hook 'lisp-mode-hook (funcall gen-enable-paredit))))
+    (add-hook 'lisp-mode-hook (funcall gen-enable-paredit))
+    (add-hook 'clojure-mode-hook (funcall gen-enable-paredit))))
 
 (defun setup-org-mode ()
   "setup org-mode"
