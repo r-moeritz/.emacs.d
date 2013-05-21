@@ -267,8 +267,8 @@ and install them if necessary"
 (defun init-local ()
   "startup code that relies on local customizations"
   (load (expand-file-name "~/quicklisp/slime-helper.el"))
-  (setq inferior-lisp-program "c:/ccl/wx86cl.exe")
-  (setup-gambit-c))
+  (setq inferior-lisp-program "c:/ccl-1.9/wx86cl.exe"))
+(setup-gambit-c)
 
 (init-vanilla)
 (init-package)
