@@ -226,6 +226,12 @@ and install them if necessary"
   (add-hook 'scheme-mode-hook (function gambit-mode))
   (setq scheme-program-name "gsi -:d-"))
 
+(defun setup-elpy ()
+  (elpy-enable)
+  ;; Disable flymake because I can't get it working with python3
+  (setq elpy-default-minor-modes 
+        '(eldoc-mode highlight-indentation-mode yas-minor-mode auto-complete-mode)))
+
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
 ;; ----------------------------------------------------------------------
@@ -258,7 +264,7 @@ and install them if necessary"
   (setup-gnuplot-mode)
   (setup-fsharp-mode)
   (setup-auto-complete)
-  (elpy-enable)
+  (setup-elpy)
   
   ;; global keyboard shortcuts
   (global-set-key (kbd "C-=") 'er/expand-region)
@@ -273,4 +279,3 @@ and install them if necessary"
 (init-vanilla)
 (init-package)
 (init-local)
-
