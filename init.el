@@ -21,7 +21,6 @@
         'smex
         'zencoding-mode
         'fsharp-mode
-        'python
         'auto-complete
         'elpy
         ) 
