@@ -9,8 +9,6 @@
         'ace-jump-mode
         'csharp-mode
         'expand-region
-        'gnuplot-mode
-        'go-mode
         'haskell-mode
         'htmlize
         'log4j-mode
@@ -24,7 +22,6 @@
         'zencoding-mode
         'fsharp-mode
         'python
-        'graphviz-dot-mode
         'auto-complete
         'elpy
         ) 
@@ -194,12 +191,6 @@
   (setq mweb-filename-extensions '("htm" "html"))
   (multi-web-global-mode 1))
 
-(defun setup-gnuplot-mode ()
-  (require 'gnuplot-mode)
-  (setq gnuplot-program "C:\\Program Files (x86)\\gnuplot\\bin\\gnuplot.exe")
-  (add-to-list 'auto-mode-alist
-             '("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode) t))
-
 (defun setup-fsharp-mode ()
   (setq inferior-fsharp-program "\"C:\\Program Files (x86)\\Microsoft SDKs\\F#\\3.0\\Framework\\v4.0\\fsi.exe\"")
   (setq fsharp-compiler "\"C:\\Program Files (x86)\\Microsoft SDKs\\F#\\3.0\\Framework\\v4.0\\fsc.exe\""))
@@ -261,7 +252,6 @@ and install them if necessary"
   (setup-powershell-mode)
   (setup-markdown-mode)
   (setup-multi-web)
-  (setup-gnuplot-mode)
   (setup-fsharp-mode)
   (setup-auto-complete)
   (setup-elpy)
