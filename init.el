@@ -92,6 +92,13 @@
           (setq exist-p nil))))
     exist-p))
 
+(defun insert-coleslaw-post-header ()
+  (interactive)
+  (let ((templ ";;;;;\ntitle: %s\ntags: %s\ndate: %s\nformat: md\n;;;;;\n\n")
+        (title (read-from-minibuffer "title: "))
+        (tags (read-from-minibuffer "tags: ")))
+    (insert (format templ title tags (format-time-string "%Y-%m-%d %H:%M:%S")))))
+
 ;; ----------------------------------------------------------------------
 ;;                            SETUP FUNCTIONS
 ;; ----------------------------------------------------------------------
@@ -237,7 +244,8 @@ and install them if necessary"
   ;; global keyboard shortcuts
   (global-set-umlaut-keys)
   (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-  (global-set-key (kbd "C-M-z") 'multi-occur-in-this-mode))
+  (global-set-key (kbd "C-M-z") 'multi-occur-in-this-mode)
+  (global-set-key (kbd "C-M-`") 'insert-coleslaw-post-header))
 
 (defun init-package ()
   "startup code that relies on package"
