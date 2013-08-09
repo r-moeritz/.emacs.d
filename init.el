@@ -23,7 +23,7 @@
         'fsharp-mode
         'auto-complete
         'elpy
-        'hy-mode
+        'elixir-mode
         ) 
   "List of package.el packages that should be installed if not present")
 
