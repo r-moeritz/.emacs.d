@@ -24,6 +24,7 @@
         'auto-complete
         'elpy
         'elixir-mode
+        'nemerle
         ) 
   "List of package.el packages that should be installed if not present")
 
@@ -229,6 +230,12 @@ and install them if necessary."
   (setq elpy-default-minor-modes 
         '(eldoc-mode highlight-indentation-mode yas-minor-mode auto-complete-mode)))
 
+(defun setup-nemerle ()
+  (autoload 'nemerle-mode "nemerle.el"
+    "Major mode for editing nemerle programs." t)
+  (add-to-list 'auto-mode-alist
+	       '("\\.n$" . nemerle-mode) t))
+
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
 ;; ----------------------------------------------------------------------
@@ -262,6 +269,7 @@ and install them if necessary."
   (setup-fsharp-mode)
   (setup-auto-complete)
   (setup-elpy)
+  (setup-nemerle)
   
   ;; Global keyboard shortcuts
   (global-set-key (kbd "C-=") 'er/expand-region)
