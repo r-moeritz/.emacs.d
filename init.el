@@ -236,6 +236,10 @@ and install them if necessary."
   (add-to-list 'auto-mode-alist
 	       '("\\.n$" . nemerle-mode) t))
 
+(defun setup-nxml ()
+  (add-to-list 'auto-mode-alist
+               '("\\.\\(xaml\\|config\\)$" . nxml-mode) t))
+
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
 ;; ----------------------------------------------------------------------
@@ -247,6 +251,7 @@ and install them if necessary."
   (setup-org-mode)
   (setup-scons)
   (setup-tramp)
+  (setup-nxml)
   
   ;; Global keyboard shortcuts
   (global-set-umlaut-keys)
