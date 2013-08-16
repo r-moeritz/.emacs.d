@@ -206,6 +206,7 @@
   "Verify that all required package.el packages are installed
 and install them if necessary."
   (package-initialize)
+  (setq package-enable-at-startup nil)
   (install-package-archives)
   (unless (package-contents-exist-p)
     (package-refresh-contents))
