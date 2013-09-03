@@ -243,7 +243,7 @@ and install them if necessary."
                '("\\.\\(xaml\\|config\\)$" . nxml-mode) t))
 
 (defun setup-elnode ()
-  (setq elnode-webserver-docroot "f:/ralph/temp/src/webgl/"))
+  (setq elnode-do-init nil))
 
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
