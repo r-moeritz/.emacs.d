@@ -25,6 +25,7 @@
         'elpy
         'elixir-mode
         'nemerle
+        'elnode
         ) 
   "List of package.el packages that should be installed if not present")
 
@@ -241,6 +242,9 @@ and install them if necessary."
   (add-to-list 'auto-mode-alist
                '("\\.\\(xaml\\|config\\)$" . nxml-mode) t))
 
+(defun setup-elnode ()
+  (setq elnode-webserver-docroot "f:/ralph/temp/src/webgl/"))
+
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
 ;; ----------------------------------------------------------------------
@@ -276,6 +280,7 @@ and install them if necessary."
   (setup-auto-complete)
   (setup-elpy)
   (setup-nemerle)
+  (setup-elnode)
   
   ;; Global keyboard shortcuts
   (global-set-key (kbd "C-=") 'er/expand-region)
