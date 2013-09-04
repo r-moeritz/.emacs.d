@@ -14,7 +14,7 @@
         'log4j-mode
         'markdown-mode
         'modeline-posn
-        'multi-web-mode
+        'web-mode
         'nrepl
         'paredit
         'powershell-mode
@@ -191,13 +191,10 @@
   (add-to-list 'auto-mode-alist
                '("SConscript" . python-mode) t))
 
-(defun setup-multi-web ()
-  (require 'multi-web-mode)
-  (setq mweb-default-major-mode 'html-mode)
-  (setq mweb-tags '((js-mode "<script[^>]*>" "</script>")
-                    (css-mode "<style[^>]*>" "</style>")))
-  (setq mweb-filename-extensions '("htm" "html"))
-  (multi-web-global-mode 1))
+(defun setup-web-mode ()
+  (require 'web-mode)
+  (add-to-list 'auto-mode-alist
+               '("\\.html?\\'" . web-mode)))
 
 (defun setup-fsharp-mode ()
   (setq inferior-fsharp-program "\"C:\\Program Files (x86)\\Microsoft SDKs\\F#\\3.0\\Framework\\v4.0\\fsi.exe\"")
@@ -275,7 +272,7 @@ and install them if necessary."
   (setup-smex)
   (setup-powershell-mode)
   (setup-markdown-mode)
-  (setup-multi-web)
+  (setup-web-mode)
   (setup-fsharp-mode)
   (setup-auto-complete)
   (setup-elpy)
