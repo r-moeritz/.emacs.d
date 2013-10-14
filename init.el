@@ -25,7 +25,6 @@
         'elpy
         'elixir-mode
         'nemerle
-        'elnode
         ) 
   "List of package.el packages that should be installed if not present")
 
@@ -148,7 +147,7 @@
   (setq-default indent-tabs-mode nil)                       ;; no tabs please
   (prefer-coding-system 'utf-8)                             ;; prefer utf-8
   (add-hook 'text-mode-hook 'turn-on-auto-fill)             ;; auto-fill in text-mode
-  (global-set-font "Consolas-12:antialias=natural")         ;; global font
+  (global-set-font "Consolas-13:antialias=natural")         ;; global font
   (put 'erase-buffer 'disabled nil)                         ;; enable erase-buffer
   (winner-mode 1)                                           ;; winner mode FTW
   (put 'upcase-region 'disabled nil)                        ;; enable upcase-region
@@ -239,9 +238,6 @@ and install them if necessary."
   (add-to-list 'auto-mode-alist
                '("\\.\\(xaml\\|config\\)$" . nxml-mode) t))
 
-(defun setup-elnode ()
-  (setq elnode-do-init nil))
-
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
 ;; ----------------------------------------------------------------------
@@ -277,7 +273,6 @@ and install them if necessary."
   (setup-auto-complete)
   (setup-elpy)
   (setup-nemerle)
-  (setup-elnode)
   
   ;; Global keyboard shortcuts
   (global-set-key (kbd "C-=") 'er/expand-region)
