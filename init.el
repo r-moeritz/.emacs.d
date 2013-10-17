@@ -238,6 +238,10 @@ and install them if necessary."
   (add-to-list 'auto-mode-alist
                '("\\.\\(xaml\\|config\\)$" . nxml-mode) t))
 
+(defun setup-jdee ()
+  (add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp")
+  (load "jde"))
+
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
 ;; ----------------------------------------------------------------------
@@ -282,7 +286,9 @@ and install them if necessary."
   "Startup code that relies on local customizations."
   (load (expand-file-name "~/quicklisp/slime-helper.el"))
   (setq inferior-lisp-program "c:/ccl-1.9/wx86cl.exe")
-  (setup-gambit-c))
+  ;; (setup-gambit-c)
+  ;; (setup-jdee)
+  )
 
 ;; ----------------------------------------------------------------------
 ;;                             MAIN FUNCTION
