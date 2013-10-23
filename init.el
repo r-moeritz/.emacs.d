@@ -25,6 +25,7 @@
         'elpy
         'elixir-mode
         'nemerle
+        'irfc
         ) 
   "List of package.el packages that should be installed if not present")
 
@@ -215,13 +216,6 @@ and install them if necessary."
   (require 'auto-complete-config)
   (ac-config-default))
 
-(defun setup-gambit-c ()
-  (autoload 'gambit-inferior-mode "gambit" "Hook Gambit mode into cmuscheme.")
-  (autoload 'gambit-mode "gambit" "Hook Gambit mode into scheme.")
-  (add-hook 'inferior-scheme-mode-hook (function gambit-inferior-mode))
-  (add-hook 'scheme-mode-hook (function gambit-mode))
-  (setq scheme-program-name "gsi -:d-"))
-
 (defun setup-elpy ()
   (elpy-enable)
   ;; Disable flymake because I can't get it working with python3
@@ -238,9 +232,10 @@ and install them if necessary."
   (add-to-list 'auto-mode-alist
                '("\\.\\(xaml\\|config\\)$" . nxml-mode) t))
 
-(defun setup-jdee ()
-  (add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp")
-  (load "jde"))
+(defun setup-irfc ()
+  (require 'irfc)
+  (setq irfc-directory temporary-file-directory)
+  (setq irfc-assoc-mode t))
 
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
@@ -277,6 +272,7 @@ and install them if necessary."
   (setup-auto-complete)
   (setup-elpy)
   (setup-nemerle)
+  (setup-irfc)
   
   ;; Global keyboard shortcuts
   (global-set-key (kbd "C-=") 'er/expand-region)
@@ -285,10 +281,7 @@ and install them if necessary."
 (defun init-local ()
   "Startup code that relies on local customizations."
   (load (expand-file-name "~/quicklisp/slime-helper.el"))
-  (setq inferior-lisp-program "c:/ccl-1.9/wx86cl.exe")
-  ;; (setup-gambit-c)
-  ;; (setup-jdee)
-  )
+  (setq inferior-lisp-program "c:/ccl-1.9/wx86cl.exe"))
 
 ;; ----------------------------------------------------------------------
 ;;                             MAIN FUNCTION
