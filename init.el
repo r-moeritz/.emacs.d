@@ -73,18 +73,6 @@
    (get-buffers-matching-mode major-mode)
    (car (occur-read-primary-args))))
 
-(defun global-set-umlaut-keys ()
-  "Set keyboard shortcuts for often used umlauts."
-  (let ((gen-insert-key
-         (lambda (key)
-           (lambda ()
-             (interactive)
-             (ucs-insert key)))))
-    (global-set-key (kbd "\C-co") (funcall gen-insert-key #xf6))
-    (global-set-key (kbd "\C-cu") (funcall gen-insert-key #xfc))
-    (global-set-key (kbd "\C-ca") (funcall gen-insert-key #xe4))
-    (global-set-key (kbd "\C-cs") (funcall gen-insert-key #xdf))))
-
 (defun package-contents-exist-p ()
   "Determine if cached package.el archive contents exist."
   (let ((exist-p t))
@@ -96,13 +84,41 @@
           (setq exist-p nil))))
     exist-p))
 
-(defun insert-coleslaw-post-header ()
-  "Insert post header at point."
-  (interactive)
-  (let ((templ ";;;;;\ntitle: %s\ntags: %s\ndate: %s\nformat: md\n;;;;;\n\n")
-        (title (read-from-minibuffer "title: "))
-        (tags (read-from-minibuffer "tags: ")))
-    (insert (format templ title tags (format-time-string "%Y-%m-%d %H:%M:%S")))))
+(defun global-set-umlaut-keys ()
+  "Set global keyboard shortcuts for often used umlauts."
+  (let ((gen-insert-key
+         (lambda (key)
+           (lambda ()
+             (interactive)
+             (ucs-insert key)))))
+    (global-set-key (kbd "\C-co") (funcall gen-insert-key #xf6))
+    (global-set-key (kbd "\C-cu") (funcall gen-insert-key #xfc))
+    (global-set-key (kbd "\C-ca") (funcall gen-insert-key #xe4))
+    (global-set-key (kbd "\C-cs") (funcall gen-insert-key #xdf))))
+
+(defun global-set-vanilla-keys ()
+  "Set global keyboard shortcuts that work in vanilla Emacs."
+  (global-set-umlaut-keys)
+  (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
+  (global-set-key (kbd "C-M-z") 'multi-occur-in-this-mode))
+
+(defun global-set-package-keys ()
+  "Set global keyboard shortcuts that rely on package.el packages."
+  (global-set-key (kbd "C-=") 'er/expand-region)
+  (global-set-key (kbd "C-@") 'ace-jump-mode))
+
+(defun global-set-vanilla-preferences ()
+  "A potpourri of preferences that work in vanilla emacs. Set globally."
+  (setq inhibit-startup-message t)                          ;; no splash screen
+  (setq-default indent-tabs-mode nil)                       ;; no tabs please
+  (prefer-coding-system 'utf-8)                             ;; prefer utf-8
+  (add-hook 'text-mode-hook 'turn-on-auto-fill)             ;; auto-fill in text-mode
+  (global-set-font "Consolas-13:antialias=natural")         ;; global font
+  (put 'erase-buffer 'disabled nil)                         ;; enable erase-buffer
+  (winner-mode 1)                                           ;; winner mode FTW
+  (put 'upcase-region 'disabled nil)                        ;; enable upcase-region
+  (setq-default fill-column 79)                             ;; fill at col 79
+  )                                  
 
 ;; ----------------------------------------------------------------------
 ;;                            SETUP FUNCTIONS
@@ -141,19 +157,6 @@
     (defun server-ensure-safe-dir (dir)
       "noop" t))
   (server-start))
-
-(defun set-preferences ()
-  "A potpourri of preferences."
-  (setq inhibit-startup-message t)                          ;; no splash screen
-  (setq-default indent-tabs-mode nil)                       ;; no tabs please
-  (prefer-coding-system 'utf-8)                             ;; prefer utf-8
-  (add-hook 'text-mode-hook 'turn-on-auto-fill)             ;; auto-fill in text-mode
-  (global-set-font "Consolas-13:antialias=natural")         ;; global font
-  (put 'erase-buffer 'disabled nil)                         ;; enable erase-buffer
-  (winner-mode 1)                                           ;; winner mode FTW
-  (put 'upcase-region 'disabled nil)                        ;; enable upcase-region
-  (setq-default fill-column 79)                             ;; fill at col 79
-  )                                  
 
 (defun setup-tramp ()
   "Configure tramp for SSH."
@@ -233,7 +236,6 @@ and install them if necessary."
                '("\\.\\(xaml\\|config\\)$" . nxml-mode) t))
 
 (defun setup-irfc ()
-  (require 'irfc)
   (setq irfc-directory temporary-file-directory)
   (setq irfc-assoc-mode t))
 
@@ -243,18 +245,14 @@ and install them if necessary."
 
 (defun init-vanilla ()
   "Startup code that works on vanilla emacs."
-  (set-preferences)
+  (global-set-vanilla-preferences)
+  (global-set-vanilla-keys)
+  
   (setup-server)
   (setup-org-mode)
   (setup-scons)
   (setup-tramp)
-  (setup-nxml)
-  
-  ;; Global keyboard shortcuts
-  (global-set-umlaut-keys)
-  (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-  (global-set-key (kbd "C-M-z") 'multi-occur-in-this-mode)
-  (global-set-key (kbd "C-M-`") 'insert-coleslaw-post-header))
+  (setup-nxml))
 
 (defun init-package ()
   "Startup code that relies on package."
@@ -274,9 +272,7 @@ and install them if necessary."
   (setup-nemerle)
   (setup-irfc)
   
-  ;; Global keyboard shortcuts
-  (global-set-key (kbd "C-=") 'er/expand-region)
-  (global-set-key (kbd "C-@") 'ace-jump-mode))
+  (global-set-package-keys))
 
 (defun init-local ()
   "Startup code that relies on local customizations."
