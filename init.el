@@ -148,6 +148,7 @@
   (winner-mode 1)                                           ;; winner mode FTW
   (put 'upcase-region 'disabled nil)                        ;; enable upcase-region
   (setq-default fill-column 79)                             ;; fill at col 79
+  (savehist-mode 1)                                         ;; i want mibuffer history
   )  
 
 (defun setup-nxml ()
