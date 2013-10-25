@@ -4,6 +4,11 @@
 ;;                              VARIABLES
 ;; ----------------------------------------------------------------------
 
+(defvar electrify-return-match
+  "[\]}\)\"]"
+  "If this regexp matches the text after the cursor, do an \"electric\"
+  return.")
+
 (defvar required-package-names
   (list 'color-theme-solarized
         'ace-jump-mode
@@ -26,13 +31,39 @@
         'elixir-mode
         'nemerle
         'irfc
-        ) 
+        )
   "List of package.el packages that should be installed if not present")
 
-(defvar electrify-return-match
-  "[\]}\)\"]"
-  "If this regexp matches the text after the cursor, do an \"electric\"
-  return.")
+(defvar vanilla-config-funcs
+  (list
+   'setup-server
+   'setup-org-mode
+   'setup-scons
+   'setup-tramp
+   'setup-nxml   
+   'global-set-vanilla-keys
+   'global-set-vanilla-preferences
+   )
+  "List of functions to configure a vanilla emacs.")
+
+(defvar package-config-funcs
+  (list
+   'verify-required-packages
+   'setup-theme
+   'setup-paredit
+   'setup-modeline-posn
+   'setup-smex
+   'setup-powershell-mode
+   'setup-markdown-mode
+   'setup-web-mode
+   'setup-fsharp-mode
+   'setup-auto-complete
+   'setup-elpy
+   'setup-nemerle
+   'setup-irfc 
+   'global-set-package-keys
+   )
+  "List of functions to configure package.el packages.")
 
 ;; ----------------------------------------------------------------------
 ;;                            HELPER FUNCTIONS
@@ -84,6 +115,10 @@
           (setq exist-p nil))))
     exist-p))
 
+;; ----------------------------------------------------------------------
+;;                            VANILLA CONFIG FUNCTIONS
+;; ----------------------------------------------------------------------
+
 (defun global-set-umlaut-keys ()
   "Set global keyboard shortcuts for often used umlauts."
   (let ((gen-insert-key
@@ -102,11 +137,6 @@
   (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
   (global-set-key (kbd "C-M-z") 'multi-occur-in-this-mode))
 
-(defun global-set-package-keys ()
-  "Set global keyboard shortcuts that rely on package.el packages."
-  (global-set-key (kbd "C-=") 'er/expand-region)
-  (global-set-key (kbd "C-@") 'ace-jump-mode))
-
 (defun global-set-vanilla-preferences ()
   "A potpourri of preferences that work in vanilla emacs. Set globally."
   (setq inhibit-startup-message t)                          ;; no splash screen
@@ -118,25 +148,11 @@
   (winner-mode 1)                                           ;; winner mode FTW
   (put 'upcase-region 'disabled nil)                        ;; enable upcase-region
   (setq-default fill-column 79)                             ;; fill at col 79
-  )                                  
+  )  
 
-;; ----------------------------------------------------------------------
-;;                            SETUP FUNCTIONS
-;; ----------------------------------------------------------------------
-
-(defun setup-paredit ()
-  "Enable paredit for all our Lisps."
-  (let ((gen-enable-paredit
-         (lambda () 
-           (lambda ()
-             (paredit-mode t)
-             (show-paren-mode t)
-             (local-set-key (kbd "RET") 'electrify-return-if-match)))))
-    (add-hook 'emacs-lisp-mode-hook (funcall gen-enable-paredit))
-    (add-hook 'scheme-mode-hook (funcall gen-enable-paredit))
-    (add-hook 'lisp-mode-hook (funcall gen-enable-paredit))
-    (add-hook 'clojure-mode-hook (funcall gen-enable-paredit))
-    (add-hook 'hy-mode-hook (funcall gen-enable-paredit))))
+(defun setup-nxml ()
+  (add-to-list 'auto-mode-alist
+               '("\\.\\(xaml\\|config\\)$" . nxml-mode) t))
 
 (defun setup-org-mode ()
   (add-to-list 'auto-mode-alist
@@ -163,6 +179,35 @@
   (setq tramp-default-method "plink")
   (setq explicit-shell-file-name "/bin/bash"))
 
+(defun setup-scons ()
+  (add-to-list 'auto-mode-alist
+               '("SConstruct" . python-mode) t)
+  (add-to-list 'auto-mode-alist
+               '("SConscript" . python-mode) t))
+
+;; ----------------------------------------------------------------------
+;;                            PACKAGE CONFIG FUNCTIONS
+;; ----------------------------------------------------------------------
+
+(defun global-set-package-keys ()
+  "Set global keyboard shortcuts that rely on package.el packages."
+  (global-set-key (kbd "C-=") 'er/expand-region)
+  (global-set-key (kbd "C-@") 'ace-jump-mode))
+
+(defun setup-paredit ()
+  "Enable paredit for all our Lisps."
+  (let ((gen-enable-paredit
+         (lambda () 
+           (lambda ()
+             (paredit-mode t)
+             (show-paren-mode t)
+             (local-set-key (kbd "RET") 'electrify-return-if-match)))))
+    (add-hook 'emacs-lisp-mode-hook (funcall gen-enable-paredit))
+    (add-hook 'scheme-mode-hook (funcall gen-enable-paredit))
+    (add-hook 'lisp-mode-hook (funcall gen-enable-paredit))
+    (add-hook 'clojure-mode-hook (funcall gen-enable-paredit))
+    (add-hook 'hy-mode-hook (funcall gen-enable-paredit))))
+
 (defun setup-modeline-posn ()
   (column-number-mode 1)
   (size-indication-mode 1))
@@ -187,12 +232,6 @@
   (smex-initialize)
   (global-set-key (kbd "M-x") 'smex)
   (global-set-key (kbd "M-X") 'smex-major-mode-commands))
-
-(defun setup-scons ()
-  (add-to-list 'auto-mode-alist
-               '("SConstruct" . python-mode) t)
-  (add-to-list 'auto-mode-alist
-               '("SConscript" . python-mode) t))
 
 (defun setup-web-mode ()
   (require 'web-mode)
@@ -231,13 +270,12 @@ and install them if necessary."
   (add-to-list 'auto-mode-alist
 	       '("\\.n$" . nemerle-mode) t))
 
-(defun setup-nxml ()
-  (add-to-list 'auto-mode-alist
-               '("\\.\\(xaml\\|config\\)$" . nxml-mode) t))
-
 (defun setup-irfc ()
   (setq irfc-directory temporary-file-directory)
   (setq irfc-assoc-mode t))
+
+(defun setup-theme ()
+  (load-theme 'solarized-dark t))
 
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
@@ -245,34 +283,11 @@ and install them if necessary."
 
 (defun init-vanilla ()
   "Startup code that works on vanilla emacs."
-  (global-set-vanilla-preferences)
-  (global-set-vanilla-keys)
-  
-  (setup-server)
-  (setup-org-mode)
-  (setup-scons)
-  (setup-tramp)
-  (setup-nxml))
+  (mapc 'funcall vanilla-config-funcs))
 
 (defun init-package ()
   "Startup code that relies on package."
-  (verify-required-packages)
-
-  (load-theme 'solarized-dark t)
-  
-  (setup-paredit)
-  (setup-modeline-posn)
-  (setup-smex)
-  (setup-powershell-mode)
-  (setup-markdown-mode)
-  (setup-web-mode)
-  (setup-fsharp-mode)
-  (setup-auto-complete)
-  (setup-elpy)
-  (setup-nemerle)
-  (setup-irfc)
-  
-  (global-set-package-keys))
+  (mapc 'funcall package-config-funcs))
 
 (defun init-local ()
   "Startup code that relies on local customizations."
