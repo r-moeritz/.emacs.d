@@ -31,6 +31,7 @@
         'elixir-mode
         'nemerle
         'irfc
+        'j-mode
         )
   "List of package.el packages that should be installed if not present")
 
@@ -61,6 +62,7 @@
    'setup-elpy
    'setup-nemerle
    'setup-irfc 
+   'setup-j-mode
    'global-set-package-keys
    )
   "List of functions to configure package.el packages.")
@@ -277,6 +279,9 @@ and install them if necessary."
 
 (defun setup-theme ()
   (load-theme 'solarized-dark t))
+
+(defun setup-j-mode ()
+  (setq j-console-cmd "C:/Program Files/j64-701/bin/jconsole.exe"))
 
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
