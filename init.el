@@ -71,6 +71,12 @@
 ;;                            HELPER FUNCTIONS
 ;; ----------------------------------------------------------------------
 
+(defun hide-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
+
 (defun electrify-return-if-match (arg)
   "If the text after the cursor matches `electrify-return-match' then
   open and indent an empty line between the cursor and the text.  Move the
