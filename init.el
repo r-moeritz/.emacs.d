@@ -25,13 +25,11 @@
         'powershell-mode
         'smex
         'zencoding-mode
-        'fsharp-mode
         'auto-complete
         'elpy
-        'elixir-mode
-        'nemerle
         'irfc
         'j-mode
+        'go-mode
         )
   "List of package.el packages that should be installed if not present")
 
@@ -57,10 +55,8 @@
    'setup-powershell-mode
    'setup-markdown-mode
    'setup-web-mode
-   'setup-fsharp-mode
    'setup-auto-complete
    'setup-elpy
-   'setup-nemerle
    'setup-irfc 
    'setup-j-mode
    'global-set-package-keys
@@ -247,10 +243,6 @@
   (add-to-list 'auto-mode-alist
                '("\\.html?\\'" . web-mode)))
 
-(defun setup-fsharp-mode ()
-  (setq inferior-fsharp-program "\"C:\\Program Files (x86)\\Microsoft SDKs\\F#\\3.0\\Framework\\v4.0\\fsi.exe\"")
-  (setq fsharp-compiler "\"C:\\Program Files (x86)\\Microsoft SDKs\\F#\\3.0\\Framework\\v4.0\\fsc.exe\""))
-
 (defun verify-required-packages ()
   "Verify that all required package.el packages are installed
 and install them if necessary."
@@ -272,12 +264,6 @@ and install them if necessary."
   ;; Disable flymake because I can't get it working with python3
   (setq elpy-default-minor-modes 
         '(eldoc-mode highlight-indentation-mode yas-minor-mode auto-complete-mode)))
-
-(defun setup-nemerle ()
-  (autoload 'nemerle-mode "nemerle.el"
-    "Major mode for editing nemerle programs." t)
-  (add-to-list 'auto-mode-alist
-	       '("\\.n$" . nemerle-mode) t))
 
 (defun setup-irfc ()
   (setq irfc-directory temporary-file-directory)
