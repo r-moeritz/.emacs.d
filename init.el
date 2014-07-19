@@ -12,7 +12,6 @@
 (defvar required-package-names
   (list 'color-theme-solarized
         'ace-jump-mode
-        'csharp-mode
         'expand-region
         'haskell-mode
         'htmlize
@@ -20,7 +19,6 @@
         'markdown-mode
         'modeline-posn
         'web-mode
-        'nrepl
         'paredit
         'powershell-mode
         'smex
