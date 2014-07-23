@@ -151,7 +151,11 @@
   (put 'upcase-region 'disabled nil)                        ;; enable upcase-region
   (setq-default fill-column 79)                             ;; fill at col 79
   (savehist-mode 1)                                         ;; i want mibuffer history
-  )  
+  (cua-mode t)                                              ;; i want standard copy 'n paste keys
+  (setq cua-auto-tabify-rectangles nil)                     ;; don't tabify after recangles
+  (transient-mark-mode 1)                                   ;; no region when it is not highlighted
+  (setq cua-keep-region-after-copy t)                       ;; std windows behaviour
+  )
 
 (defun setup-nxml ()
   (add-to-list 'auto-mode-alist
