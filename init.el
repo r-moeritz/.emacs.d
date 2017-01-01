@@ -10,24 +10,20 @@
   return.")
 
 (defvar required-package-names
-  (list 'color-theme-solarized
+  (list 
         'ace-jump-mode
         'expand-region
-        'haskell-mode
         'htmlize
         'log4j-mode
         'markdown-mode
         'modeline-posn
         'web-mode
         'paredit
-        'powershell-mode
         'smex
         'zencoding-mode
         'auto-complete
         'elpy
         'irfc
-        'j-mode
-        'go-mode
         )
   "List of package.el packages that should be installed if not present")
 
@@ -46,17 +42,14 @@
 (defvar package-config-funcs
   (list
    'verify-required-packages
-   'setup-theme
    'setup-paredit
    'setup-modeline-posn
    'setup-smex
-   'setup-powershell-mode
    'setup-markdown-mode
    'setup-web-mode
    'setup-auto-complete
    'setup-elpy
    'setup-irfc 
-   'setup-j-mode
    'global-set-package-keys
    )
   "List of functions to configure package.el packages.")
@@ -81,14 +74,6 @@
         (save-excursion (newline-and-indent)))
     (newline arg)
     (indent-according-to-mode)))
-
-(defun global-set-font (font)
-  "Globally set the font to FONT"
-  (let ((fontify-frame
-         (lambda (frame)
-           (set-frame-parameter frame 'font font))))
-    (funcall fontify-frame nil)
-    (push fontify-frame after-make-frame-functions)))
 
 (defun get-buffers-matching-mode (mode)
   "Return a list of buffers where their major-mode is equal to MODE"
@@ -121,21 +106,8 @@
 ;;                            VANILLA CONFIG FUNCTIONS
 ;; ----------------------------------------------------------------------
 
-(defun global-set-umlaut-keys ()
-  "Set global keyboard shortcuts for often used umlauts."
-  (let ((gen-insert-key
-         (lambda (key)
-           (lambda ()
-             (interactive)
-             (ucs-insert key)))))
-    (global-set-key (kbd "\C-co") (funcall gen-insert-key #xf6))
-    (global-set-key (kbd "\C-cu") (funcall gen-insert-key #xfc))
-    (global-set-key (kbd "\C-ca") (funcall gen-insert-key #xe4))
-    (global-set-key (kbd "\C-cs") (funcall gen-insert-key #xdf))))
-
 (defun global-set-vanilla-keys ()
   "Set global keyboard shortcuts that work in vanilla Emacs."
-  (global-set-umlaut-keys)
   (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
   (global-set-key (kbd "C-M-z") 'multi-occur-in-this-mode))
 
@@ -145,7 +117,6 @@
   (setq-default indent-tabs-mode nil)                       ;; no tabs please
   (prefer-coding-system 'utf-8)                             ;; prefer utf-8
   (add-hook 'text-mode-hook 'turn-on-auto-fill)             ;; auto-fill in text-mode
-  (global-set-font "Consolas-13:antialias=natural")         ;; global font
   (put 'erase-buffer 'disabled nil)                         ;; enable erase-buffer
   (winner-mode 1)                                           ;; winner mode FTW
   (put 'upcase-region 'disabled nil)                        ;; enable upcase-region
@@ -230,11 +201,6 @@
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.milkbox.net/packages/") t))
 
-(defun setup-powershell-mode ()
-  (require 'powershell-mode)
-  (add-to-list 'auto-mode-alist
-               '("\\.ps[md]?1$" . powershell-mode) t ))
-
 (defun setup-smex ()
   (smex-initialize)
   (global-set-key (kbd "M-x") 'smex)
@@ -271,12 +237,6 @@ and install them if necessary."
   (setq irfc-directory temporary-file-directory)
   (setq irfc-assoc-mode t))
 
-(defun setup-theme ()
-  (load-theme 'solarized-dark t))
-
-(defun setup-j-mode ()
-  (setq j-console-cmd "C:/Program Files/j64-701/bin/jconsole.exe"))
-
 ;; ----------------------------------------------------------------------
 ;;                             INIT FUNCTIONS
 ;; ----------------------------------------------------------------------
@@ -289,18 +249,12 @@ and install them if necessary."
   "Startup code that relies on package."
   (mapc 'funcall package-config-funcs))
 
-(defun init-local ()
-  "Startup code that relies on local customizations."
-  (load (expand-file-name "~/quicklisp/slime-helper.el"))
-  (setq inferior-lisp-program "c:/ccl-1.9/wx86cl.exe"))
-
 ;; ----------------------------------------------------------------------
 ;;                             MAIN FUNCTION
 ;; ----------------------------------------------------------------------
 
 (defun main ()
   (init-vanilla)
-  (init-package)
-  (init-local))
+  (init-package))
 
 (main)
