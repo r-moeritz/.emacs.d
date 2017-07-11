@@ -31,7 +31,6 @@
   (list
    'setup-server
    'setup-org-mode
-   'setup-scons
    'setup-tramp
    'setup-nxml   
    'global-set-vanilla-keys
@@ -126,6 +125,7 @@
   (setq cua-auto-tabify-rectangles nil)                     ;; don't tabify after recangles
   (transient-mark-mode 1)                                   ;; no region when it is not highlighted
   (setq cua-keep-region-after-copy t)                       ;; std windows behaviour
+  (setq make-backup-files nil)                              ;; stop creating backup~ files
   )
 
 (defun setup-nxml ()
@@ -156,12 +156,6 @@
   "Configure tramp for SSH."
   (setq tramp-default-method "plink")
   (setq explicit-shell-file-name "/bin/bash"))
-
-(defun setup-scons ()
-  (add-to-list 'auto-mode-alist
-               '("SConstruct" . python-mode) t)
-  (add-to-list 'auto-mode-alist
-               '("SConscript" . python-mode) t))
 
 ;; ----------------------------------------------------------------------
 ;;                            PACKAGE CONFIG FUNCTIONS
@@ -258,3 +252,4 @@ and install them if necessary."
   (init-package))
 
 (main)
+
