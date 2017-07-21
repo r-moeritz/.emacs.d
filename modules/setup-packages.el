@@ -1,20 +1,19 @@
-(defvar required-package-names
-  (list
-   'ace-jump-mode
-   'expand-region
-   'htmlize
-   'log4j-mode
-   'markdown-mode
-   'modeline-posn
-   'web-mode
-   'paredit
-   'smex
-   'zencoding-mode
-   'auto-complete
-   'elpy
-   'irfc
-   )
-  "List of package.el packages that should be installed if not present")
+(setq package-selected-packages
+  '(ace-jump-mode
+    expand-region
+    htmlize
+    log4j-mode
+    markdown-mode
+    modeline-posn
+    web-mode
+    paredit
+    smex
+    zencoding-mode
+    auto-complete
+    elpy
+    irfc
+    magit
+    ))
 
 (defvar package-config-funcs
   (list
@@ -27,7 +26,9 @@
    'setup-auto-complete
    'setup-elpy
    'setup-irfc
-   'global-set-package-keys
+   'setup-expand-region
+   'setup-ace-jump
+   'setup-magit
    )
   "List of functions to configure package.el packages.")
 
@@ -38,9 +39,7 @@ and install them if necessary."
                '("melpa" . "http://melpa.org/packages/") t)
   (unless package-archive-contents
     (package-refresh-contents))
-  (dolist (pkg required-package-names)
-    (unless (package-installed-p pkg)
-      (package-install pkg))))
+  (package-install-selected-packages))
 
 (defun setup-auto-complete ()
   (require 'auto-complete-config)
@@ -71,9 +70,10 @@ and install them if necessary."
   (add-to-list 'auto-mode-alist
                '("\\.html?\\'" . web-mode)))
 
-(defun global-set-package-keys ()
-  "Set global keyboard shortcuts that rely on package.el packages."
-  (global-set-key (kbd "C-=") 'er/expand-region)
+(defun setup-expand-region ()
+  (global-set-key (kbd "C-=") 'er/expand-region))
+
+(defun setup-ace-jump ()
   (global-set-key (kbd "C-@") 'ace-jump-mode))
 
 (defun setup-paredit ()
@@ -93,6 +93,9 @@ and install them if necessary."
 (defun setup-modeline-posn ()
   (column-number-mode 1)
   (size-indication-mode 1))
+
+(defun setup-magit ()
+  (global-set-key (kbd "C-x g") 'magit-status))
 
 (mapc 'funcall package-config-funcs)
 
