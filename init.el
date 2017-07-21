@@ -5,4 +5,5 @@
 (add-to-list 'load-path "~/.emacs.d/modules")
 
 (require 'setup-general)
+(require 'setup-cedet)
 (require 'setup-packages)

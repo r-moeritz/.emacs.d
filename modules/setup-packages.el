@@ -1,7 +1,6 @@
 (setq package-selected-packages
   '(ace-jump-mode
     expand-region
-    htmlize
     log4j-mode
     markdown-mode
     modeline-posn
@@ -13,6 +12,9 @@
     elpy
     irfc
     magit
+    ws-butler
+    dtrt-indent
+    use-package
     ))
 
 (defvar package-config-funcs
@@ -27,8 +29,10 @@
    'setup-elpy
    'setup-irfc
    'setup-expand-region
-   'setup-ace-jump
+   'setup-ace-jump-mode
    'setup-magit
+   'setup-dtrt-indent
+   'setup-ws-butler
    )
   "List of functions to configure package.el packages.")
 
@@ -42,60 +46,86 @@ and install them if necessary."
   (package-install-selected-packages))
 
 (defun setup-auto-complete ()
-  (require 'auto-complete-config)
-  (ac-config-default))
+  (use-package auto-complete
+               :config (ac-config-default)))
 
 (defun setup-elpy ()
-  (elpy-enable)
-  (setq elpy-default-minor-modes
-        '(eldoc-mode highlight-indentation-mode yas-minor-mode auto-complete-mode)))
+  (use-package elpy
+               :config
+               (elpy-enable)
+               :init
+               (setq elpy-default-minor-modes
+                     '(eldoc-mode highlight-indentation-mode yas-minor-mode auto-complete-mode))))
 
 (defun setup-irfc ()
-  (setq irfc-directory temporary-file-directory)
-  (setq irfc-assoc-mode t))
+  (use-package irfc
+               :init
+               (setq irfc-directory temporary-file-directory)
+               (setq irfc-assoc-mode t)))
 
 (defun setup-markdown-mode ()
-  (autoload 'markdown-mode "markdown-mode.el"
-    "Major mode for editing Markdown files" t)
-  (add-to-list 'auto-mode-alist
-               '("\\.\\(md\\|markdown\\|post\\)$" . markdown-mode) t))
+  (use-package markdown-mode
+               :init 
+               (add-to-list 'auto-mode-alist
+                            '("\\.\\(md\\|markdown\\|post\\)$" . markdown-mode) t)))
 
 (defun setup-smex ()
-  (smex-initialize)
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands))
+  (use-package smex
+               :bind (("M-x" . smex)
+                      ("M-X" . smex-major-mode-commands))
+               :config (smex-initialize)))
 
 (defun setup-web-mode ()
-  (require 'web-mode)
-  (add-to-list 'auto-mode-alist
-               '("\\.html?\\'" . web-mode)))
+  (use-package web-mode
+               :init
+               (add-to-list 'auto-mode-alist
+                            '("\\.html?\\'" . web-mode))))
 
 (defun setup-expand-region ()
-  (global-set-key (kbd "C-=") 'er/expand-region))
+  (use-package expand-region
+               :bind ("C-=" . er/expand-region)))
 
-(defun setup-ace-jump ()
-  (global-set-key (kbd "C-@") 'ace-jump-mode))
+(defun setup-ace-jump-mode ()
+  (use-package ace-jump-mode
+               :bind ("C-." . ace-jump-mode)))
+
+(defun rmoritz/paredit-hook ()
+  (local-set-key (kbd "RET") 'electrify-return-if-match)
+  (paredit-mode t)
+  (show-paren-mode t))
 
 (defun setup-paredit ()
-  "Enable paredit for all our Lisps."
-  (let ((gen-enable-paredit
-         (lambda ()
-           (lambda ()
-             (paredit-mode t)
-             (show-paren-mode t)
-             (local-set-key (kbd "RET") 'electrify-return-if-match)))))
-    (add-hook 'emacs-lisp-mode-hook (funcall gen-enable-paredit))
-    (add-hook 'scheme-mode-hook (funcall gen-enable-paredit))
-    (add-hook 'lisp-mode-hook (funcall gen-enable-paredit))
-    (add-hook 'clojure-mode-hook (funcall gen-enable-paredit))
-    (add-hook 'hy-mode-hook (funcall gen-enable-paredit))))
+  (use-package paredit
+               :init
+               (add-hook 'emacs-lisp-mode-hook 'rmoritz/paredit-hook)
+               (add-hook 'scheme-mode-hook 'rmoritz/paredit-hook)
+               (add-hook 'lisp-mode-hook 'rmoritz/paredit-hook)
+               (add-hook 'clojure-mode-hook 'rmoritz/paredit-hook)
+               (add-hook 'hy-mode-hook 'rmoritz/paredit-hook)))
 
 (defun setup-modeline-posn ()
-  (column-number-mode 1)
-  (size-indication-mode 1))
+  (use-package modeline-posn
+               :config
+               (column-number-mode 1)
+               (size-indication-mode 1)))
 
 (defun setup-magit ()
-  (global-set-key (kbd "C-x g") 'magit-status))
+  (use-package magit
+               :bind ("C-x g" . magit-status)))
+
+(defun setup-dtrt-indent ()
+  (use-package dtrt-indent
+               :config
+               (dtrt-indent-mode 1)
+               :init
+               (setq dtrt-indent-verbosity 0)))
+
+(defun setup-ws-butler ()
+  (use-package ws-butler
+               :init
+               (add-hook 'prog-mode-hook 'ws-butler-mode)
+               (add-hook 'text-mode 'ws-butler-mode)
+               (add-hook 'fundamental-mode 'ws-butler-mode)))
 
 (mapc 'funcall package-config-funcs)
 

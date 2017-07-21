@@ -91,7 +91,10 @@
   "A potpourri of preferences that work in vanilla emacs. Set globally."
   (setq inhibit-startup-message t)                          ;; no splash screen
   (setq-default indent-tabs-mode nil)                       ;; no tabs please
-  (prefer-coding-system 'utf-8)                             ;; prefer utf-8
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-language-environment "UTF-8")
+  (prefer-coding-system 'utf-8)                             ;; prefer UTF-8 all-round
   (add-hook 'text-mode-hook 'turn-on-auto-fill)             ;; auto-fill in text-mode
   (put 'erase-buffer 'disabled nil)                         ;; enable erase-buffer
   (winner-mode 1)                                           ;; winner mode FTW
