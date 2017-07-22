@@ -1,28 +1,12 @@
-;;;; Configuration variables ;;;;
+;; -*- mode: emacs-lisp; lexical-binding: t; -*-
 
-(defvar electrify-return-match
-  "[\]}\)\"]"
-  "If this regexp matches the text after the cursor, do an \"electric\"
-  return.")
-
-;;;; Helper functions ;;;;
+;; Some useful helper functions
 
 (defun hide-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
   (interactive)
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
-
-(defun electrify-return-if-match (arg)
-  "If the text after the cursor matches `electrify-return-match' then
-  open and indent an empty line between the cursor and the text.  Move the
-  cursor to the new line."
-  (interactive "P")
-  (let ((case-fold-search nil))
-    (if (looking-at electrify-return-match)
-        (save-excursion (newline-and-indent)))
-    (newline arg)
-    (indent-according-to-mode)))
 
 (defun get-buffers-matching-mode (mode)
   "Return a list of buffers where their major-mode is equal to MODE"
@@ -40,7 +24,7 @@
    (get-buffers-matching-mode major-mode)
    (car (occur-read-primary-args))))
 
-;;;; Configuration functions ;;;;
+;; Configuration functions for vanilla Emacs features
 
 (defvar vanilla-config-funcs
   (list

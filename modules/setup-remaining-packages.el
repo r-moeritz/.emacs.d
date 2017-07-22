@@ -1,26 +1,9 @@
-(setq package-selected-packages
-  '(ace-jump-mode
-    expand-region
-    log4j-mode
-    markdown-mode
-    modeline-posn
-    web-mode
-    paredit
-    smex
-    zencoding-mode
-    auto-complete
-    elpy
-    irfc
-    magit
-    ws-butler
-    dtrt-indent
-    use-package
-    ))
+;; -*- mode: emacs-lisp; lexical-binding: t; -*-
+
+;; Functions to configure 3rd party packages
 
 (defvar package-config-funcs
   (list
-   'verify-required-packages
-   'setup-paredit
    'setup-modeline-posn
    'setup-smex
    'setup-markdown-mode
@@ -35,15 +18,6 @@
    'setup-ws-butler
    )
   "List of functions to configure package.el packages.")
-
-(defun verify-required-packages ()
-  "Verify that all required package.el packages are installed
-and install them if necessary."
-  (add-to-list 'package-archives
-               '("melpa" . "http://melpa.org/packages/") t)
-  (unless package-archive-contents
-    (package-refresh-contents))
-  (package-install-selected-packages))
 
 (defun setup-auto-complete ()
   (use-package auto-complete
@@ -65,7 +39,7 @@ and install them if necessary."
 
 (defun setup-markdown-mode ()
   (use-package markdown-mode
-               :init 
+               :init
                (add-to-list 'auto-mode-alist
                             '("\\.\\(md\\|markdown\\|post\\)$" . markdown-mode) t)))
 
@@ -88,20 +62,6 @@ and install them if necessary."
 (defun setup-ace-jump-mode ()
   (use-package ace-jump-mode
                :bind ("C-." . ace-jump-mode)))
-
-(defun rmoritz/paredit-hook ()
-  (local-set-key (kbd "RET") 'electrify-return-if-match)
-  (paredit-mode t)
-  (show-paren-mode t))
-
-(defun setup-paredit ()
-  (use-package paredit
-               :init
-               (add-hook 'emacs-lisp-mode-hook 'rmoritz/paredit-hook)
-               (add-hook 'scheme-mode-hook 'rmoritz/paredit-hook)
-               (add-hook 'lisp-mode-hook 'rmoritz/paredit-hook)
-               (add-hook 'clojure-mode-hook 'rmoritz/paredit-hook)
-               (add-hook 'hy-mode-hook 'rmoritz/paredit-hook)))
 
 (defun setup-modeline-posn ()
   (use-package modeline-posn
@@ -129,4 +89,4 @@ and install them if necessary."
 
 (mapc 'funcall package-config-funcs)
 
-(provide 'setup-packages)
+(provide 'setup-remaining-packages)

@@ -1,3 +1,5 @@
+;; -*- mode: emacs-lisp; lexical-binding: t; -*-
+
 (require 'cc-mode)
 (require 'semantic)
 
