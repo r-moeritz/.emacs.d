@@ -7,4 +7,5 @@
 (require 'setup-general)
 (require 'setup-cedet)
 (require 'setup-paredit)
+(require 'setup-helm)
 (require 'setup-remaining-packages)

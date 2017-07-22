@@ -8,7 +8,6 @@
    'setup-smex
    'setup-markdown-mode
    'setup-web-mode
-   'setup-auto-complete
    'setup-elpy
    'setup-irfc
    'setup-expand-region
@@ -18,10 +17,6 @@
    'setup-ws-butler
    )
   "List of functions to configure package.el packages.")
-
-(defun setup-auto-complete ()
-  (use-package auto-complete
-               :config (ac-config-default)))
 
 (defun setup-elpy ()
   (use-package elpy
