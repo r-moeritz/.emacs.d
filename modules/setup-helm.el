@@ -166,8 +166,7 @@
           (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
           (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
           (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
-          (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history))))))
-
-(helm-mode 1)
+          (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)))))
+  :config (helm-mode 1))
 
 (provide 'setup-helm)

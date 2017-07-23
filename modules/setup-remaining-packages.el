@@ -15,8 +15,13 @@
    'setup-magit
    'setup-dtrt-indent
    'setup-ws-butler
+   'setup-company
    )
   "List of functions to configure package.el packages.")
+
+(defun setup-company ()
+  (use-package company
+    :config (global-company-mode 1)))
 
 (defun setup-elpy ()
   (use-package elpy
