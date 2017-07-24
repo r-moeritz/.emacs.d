@@ -130,7 +130,6 @@
       (setq helm-swoop-speed-or-color t))
 
     (use-package helm-projectile
-      :bind ("C-c f" . helm-projectile-find-other-file)
       :init
       (helm-projectile-on)
       (setq projectile-completion-system 'helm)

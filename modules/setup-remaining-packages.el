@@ -16,12 +16,29 @@
    'setup-dtrt-indent
    'setup-ws-butler
    'setup-company
+   'setup-srefactor
+   'setup-projectile
    )
   "List of functions to configure package.el packages.")
 
+(defun setup-projectile ()
+  (use-package projectile
+    :config (projectile-global-mode)))
+
+(defun setup-srefactor ()
+  (use-package srefactor
+    :init
+    (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
+    (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
+    :bind (("M-RET o" . srefactor-lisp-one-line)
+           ("M-RET m" . srefactor-lisp-format-sexp)
+           ("M-RET d" . srefactor-lisp-format-defun)
+           ("M-RET b" . srefactor-lisp-format-buffer))))
+
 (defun setup-company ()
   (use-package company
-    :config (global-company-mode 1)))
+    :bind ("S-SPC" . company-complete)
+    :init (add-hook 'after-init-hook 'global-company-mode)))
 
 (defun setup-elpy ()
   (use-package elpy
@@ -41,7 +58,7 @@
   (use-package markdown-mode
                :init
                (add-to-list 'auto-mode-alist
-                            '("\\.\\(md\\|markdown\\|post\\)$" . markdown-mode) t)))
+                            '("\\.\\(md\\|markdown\\)$" . markdown-mode) t)))
 
 (defun setup-smex ()
   (use-package smex

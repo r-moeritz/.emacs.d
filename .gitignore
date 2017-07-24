@@ -6,3 +6,5 @@ history
 smex-items
 tramp
 ede-projects.el
+srecode-map.el
+projectile-bookmarks.eld
