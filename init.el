@@ -9,3 +9,4 @@
 (require 'setup-paredit)
 (require 'setup-helm)
 (require 'setup-remaining-packages)
+(require 'setup-ecb)

@@ -38,7 +38,9 @@
 (defun setup-company ()
   (use-package company
     :bind ("S-SPC" . company-complete)
-    :init (add-hook 'after-init-hook 'global-company-mode)))
+    :init
+    (add-hook 'after-init-hook 'global-company-mode)
+    (setq company-backends (delete 'company-clang company-backends))))
 
 (defun setup-elpy ()
   (use-package elpy
