@@ -69,7 +69,11 @@
 (defun global-set-vanilla-keys ()
   "Set global keyboard shortcuts that work in vanilla Emacs."
   (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-  (global-set-key (kbd "C-M-z") 'multi-occur-in-this-mode))
+  (global-set-key (kbd "C-M-z") 'multi-occur-in-this-mode)
+  (global-set-key (kbd "<f5>") (lambda ()
+                                 (interactive)
+                                 (setq-local compilation-read-command nil)
+                                 (call-interactively 'compile))))
 
 (defun global-set-vanilla-preferences ()
   "A potpourri of preferences that work in vanilla emacs. Set globally."

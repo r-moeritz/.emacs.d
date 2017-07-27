@@ -18,8 +18,24 @@
    'setup-company
    'setup-srefactor
    'setup-projectile
+   'setup-smartparens
    )
   "List of functions to configure package.el packages.")
+
+(defun setup-smartparens ()
+  (use-package smartparens
+    :config
+    (require 'smartparens-config)
+    (show-smartparens-global-mode 1)
+    (smartparens-global-mode 1)
+    (smartparens-global-strict-mode 1)
+
+    ;; when you press RET, the curly braces automatically
+    ;; add another newline
+    (sp-with-modes '(c-mode c++-mode)
+      (sp-local-pair "{" nil :post-handlers '(("||\n[i]" "RET")))
+      (sp-local-pair "/*" "*/" :post-handlers '((" | " "SPC")
+                                                ("* ||\n[i]" "RET"))))))
 
 (defun setup-projectile ()
   (use-package projectile
