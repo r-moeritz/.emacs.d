@@ -1,30 +1,10 @@
 ;; -*- mode: emacs-lisp; lexical-binding: t; -*-
 
-;; Some useful helper functions
-
 (defun hide-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
   (interactive)
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
-
-(defun get-buffers-matching-mode (mode)
-  "Return a list of buffers where their major-mode is equal to MODE"
-  (let ((buffer-mode-matches '()))
-    (dolist (buf (buffer-list))
-      (with-current-buffer buf
-        (if (eq mode major-mode)
-            (add-to-list 'buffer-mode-matches buf))))
-    buffer-mode-matches))
-
-(defun multi-occur-in-this-mode ()
-  "Show all lines matching regexp in buffers with this major mode."
-  (interactive)
-  (multi-occur
-   (get-buffers-matching-mode major-mode)
-   (car (occur-read-primary-args))))
-
-;; Configuration functions for vanilla Emacs features
 
 (defvar vanilla-config-funcs
   (list
@@ -78,11 +58,11 @@
 (defun global-set-vanilla-preferences ()
   "A potpourri of preferences that work in vanilla emacs. Set globally."
   (setq inhibit-startup-message t)                          ;; no splash screen
-  (setq-default indent-tabs-mode nil)                       ;; no tabs please
+  (setq-default indent-tabs-mode nil)                       ;; no tabs
   (set-terminal-coding-system 'utf-8)
   (set-keyboard-coding-system 'utf-8)
   (set-language-environment "UTF-8")
-  (prefer-coding-system 'utf-8)                             ;; prefer UTF-8 all-round
+  (prefer-coding-system 'utf-8)                             ;; prefer UTF-8 everywhere
   (add-hook 'text-mode-hook 'turn-on-auto-fill)             ;; auto-fill in text-mode
   (put 'erase-buffer 'disabled nil)                         ;; enable erase-buffer
   (winner-mode 1)                                           ;; winner mode FTW
@@ -92,7 +72,6 @@
   (cua-mode t)                                              ;; de-facto standard copy 'n paste keys
   (setq cua-auto-tabify-rectangles nil)                     ;; don't tabify after recangles
   (transient-mark-mode 1)                                   ;; no region when it is not highlighted
-  (setq cua-keep-region-after-copy t)                       ;; de-facto standard behaviour
   (setq make-backup-files nil)                              ;; stop creating backup~ files
   )
 

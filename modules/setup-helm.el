@@ -133,7 +133,8 @@
       :init
       (helm-projectile-on)
       (setq projectile-completion-system 'helm)
-      (setq projectile-indexing-method 'alien))
+      (setq projectile-indexing-method 'alien)
+      (setq projectile-switch-project-action 'helm-projectile))
 
     (use-package helm-gtags
       :init
