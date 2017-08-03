@@ -18,12 +18,10 @@
   "List of functions to configure a vanilla emacs.")
 
 (defun setup-server ()
-  "Start server, suppressing error 'directory ~/.emacs.d/server is unsafe' on Windows."
+  "Start server."
   (require 'server)
-  (when (equal window-system 'w32)
-    (defun server-ensure-safe-dir (dir)
-      "noop" t))
-  (server-start))
+  (unless (server-running-p)
+    (server-start)))
 
 (defun setup-tramp ()
   "Configure tramp for SSH."
