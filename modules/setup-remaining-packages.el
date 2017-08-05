@@ -19,8 +19,14 @@
    'setup-srefactor
    'setup-projectile
    'setup-smartparens
+   'setup-alect-themes
    )
   "List of functions to configure package.el packages.")
+
+(defun setup-alect-themes ()
+  (use-package alect-themes
+    :config
+    (load-theme 'alect-dark t)))
 
 (defun setup-smartparens ()
   (use-package smartparens
