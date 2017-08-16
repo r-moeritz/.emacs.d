@@ -1,3 +1,0 @@
-[submodule "packages/ecb"]
-	path = packages/ecb
-	url = https://github.com/ecb-home/ecb.git

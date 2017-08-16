@@ -8,4 +8,3 @@
 (require 'setup-cedet)
 (require 'setup-helm)
 (require 'setup-remaining-packages)
-(require 'setup-ecb)
