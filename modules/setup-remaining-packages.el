@@ -20,8 +20,13 @@
    'setup-projectile
    'setup-smartparens
    'setup-alect-themes
+   'setup-rust-playground
    )
   "List of functions to configure package.el packages.")
+
+(defun setup-rust-playground ()
+  (use-package rust-playground
+    :bind (("C-x e" . rust-playground-exec))))
 
 (defun setup-alect-themes ()
   (use-package alect-themes

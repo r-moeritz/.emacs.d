@@ -1,4 +1,1 @@
-emacs.d
-=======
-
-my .emacs.d
+My Emacs settings.
