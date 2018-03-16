@@ -9,3 +9,4 @@ ede-projects.el
 srecode-map.el
 projectile-bookmarks.eld
 cedet-projects.el
+rust-playground
