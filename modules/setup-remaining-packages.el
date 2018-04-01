@@ -4,12 +4,10 @@
 
 (defvar package-config-funcs
   (list
-   'setup-modeline-posn
    'setup-smex
    'setup-markdown-mode
    'setup-web-mode
    'setup-elpy
-   'setup-irfc
    'setup-expand-region
    'setup-ace-jump-mode
    'setup-magit
@@ -21,8 +19,14 @@
    'setup-smartparens
    'setup-alect-themes
    'setup-rust-playground
+   'setup-rjsx-mode
    )
   "List of functions to configure package.el packages.")
+
+(defun setup-rjsx-mode ()
+  (use-package rjsx-mode
+    :init
+    (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode))))
 
 (defun setup-rust-playground ()
   (use-package rust-playground
@@ -77,12 +81,6 @@
                (setq elpy-default-minor-modes
                      '(eldoc-mode highlight-indentation-mode yas-minor-mode auto-complete-mode))))
 
-(defun setup-irfc ()
-  (use-package irfc
-               :init
-               (setq irfc-directory temporary-file-directory)
-               (setq irfc-assoc-mode t)))
-
 (defun setup-markdown-mode ()
   (use-package markdown-mode
                :init
@@ -108,12 +106,6 @@
 (defun setup-ace-jump-mode ()
   (use-package ace-jump-mode
                :bind ("C-." . ace-jump-mode)))
-
-(defun setup-modeline-posn ()
-  (use-package modeline-posn
-               :config
-               (column-number-mode 1)
-               (size-indication-mode 1)))
 
 (defun setup-magit ()
   (use-package magit
