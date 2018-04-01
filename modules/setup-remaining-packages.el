@@ -26,7 +26,7 @@
 (defun setup-rjsx-mode ()
   (use-package rjsx-mode
     :init
-    (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode))))
+    (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))))
 
 (defun setup-rust-playground ()
   (use-package rust-playground
