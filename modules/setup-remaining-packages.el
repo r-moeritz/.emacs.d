@@ -18,7 +18,6 @@
    'setup-projectile
    'setup-smartparens
    'setup-alect-themes
-   'setup-rust-playground
    'setup-rjsx-mode
    )
   "List of functions to configure package.el packages.")
@@ -27,10 +26,6 @@
   (use-package rjsx-mode
     :init
     (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))))
-
-(defun setup-rust-playground ()
-  (use-package rust-playground
-    :bind (("C-x e" . rust-playground-exec))))
 
 (defun setup-alect-themes ()
   (use-package alect-themes
