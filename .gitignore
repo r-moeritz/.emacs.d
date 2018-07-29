@@ -8,6 +8,7 @@ tramp
 ede-projects.el
 srecode-map.el
 projectile-bookmarks.eld
+projectile.cache
 cedet-projects.el
 rust-playground
 elpa

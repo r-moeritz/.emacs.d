@@ -60,6 +60,7 @@
   "A potpourri of preferences that work in vanilla emacs. Set globally."
   (setq inhibit-startup-message t)                          ;; no splash screen
   (setq-default indent-tabs-mode nil)                       ;; no tabs
+  (set-face-attribute 'default nil :height 140)             ;; bigger font
   (set-terminal-coding-system 'utf-8)
   (set-keyboard-coding-system 'utf-8)
   (set-language-environment "UTF-8")
