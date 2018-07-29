@@ -61,6 +61,7 @@
   (setq inhibit-startup-message t)                          ;; no splash screen
   (setq-default indent-tabs-mode nil)                       ;; no tabs
   (set-face-attribute 'default nil :height 140)             ;; bigger font
+  (setq column-number-mode t)                               ;; show column number in mode line
   (set-terminal-coding-system 'utf-8)
   (set-keyboard-coding-system 'utf-8)
   (set-language-environment "UTF-8")
