@@ -19,6 +19,8 @@
    'setup-smartparens
    'setup-alect-themes
    'setup-rjsx-mode
+   'setup-intero
+   'setup-fsharp-mode
    )
   "List of functions to configure package.el packages.")
 
@@ -49,7 +51,10 @@
 
 (defun setup-projectile ()
   (use-package projectile
-    :config (projectile-global-mode)))
+    :config (projectile-mode +1)
+    :init
+    (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 
 (defun setup-srefactor ()
   (use-package srefactor
@@ -119,6 +124,14 @@
                (add-hook 'prog-mode-hook 'ws-butler-mode)
                (add-hook 'text-mode 'ws-butler-mode)
                (add-hook 'fundamental-mode 'ws-butler-mode)))
+
+(defun setup-intero ()
+  (use-package intero
+    :init
+    (add-hook 'haskell-mode-hook 'intero-mode)))
+
+(defun setup-fsharp-mode ()
+  (use-package fsharp-mode))
 
 (mapc 'funcall package-config-funcs)
 
