@@ -21,6 +21,7 @@
    'setup-rjsx-mode
    'setup-intero
    'setup-fsharp-mode
+   'setup-geiser
    )
   "List of functions to configure package.el packages.")
 
@@ -132,6 +133,9 @@
 
 (defun setup-fsharp-mode ()
   (use-package fsharp-mode))
+
+(defun setup-geiser ()
+  (use-package geiser))
 
 (mapc 'funcall package-config-funcs)
 
