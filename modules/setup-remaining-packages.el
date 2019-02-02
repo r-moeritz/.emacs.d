@@ -22,6 +22,7 @@
    'setup-intero
    'setup-fsharp-mode
    'setup-geiser
+   'setup-basic-mode
    )
   "List of functions to configure package.el packages.")
 
@@ -136,6 +137,10 @@
 
 (defun setup-geiser ()
   (use-package geiser))
+
+(defun setup-basic-mode ()
+  (use-package basic-mode
+    :config (setq basic-auto-number 10)))
 
 (mapc 'funcall package-config-funcs)
 
