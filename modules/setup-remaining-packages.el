@@ -140,7 +140,9 @@
 
 (defun setup-basic-mode ()
   (use-package basic-mode
-    :config (setq basic-auto-number 10)))
+    :config
+    (setq basic-auto-number 10
+          basic-line-number-cols 5)))
 
 (mapc 'funcall package-config-funcs)
 
