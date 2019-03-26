@@ -19,11 +19,8 @@
    'setup-smartparens
    'setup-alect-themes
    'setup-rjsx-mode
-   'setup-intero
    'setup-fsharp-mode
-   'setup-geiser
-   'setup-basic-mode
-   )
+   'setup-basic-mode)
   "List of functions to configure package.el packages.")
 
 (defun setup-rjsx-mode ()
@@ -127,16 +124,8 @@
                (add-hook 'text-mode 'ws-butler-mode)
                (add-hook 'fundamental-mode 'ws-butler-mode)))
 
-(defun setup-intero ()
-  (use-package intero
-    :init
-    (add-hook 'haskell-mode-hook 'intero-mode)))
-
 (defun setup-fsharp-mode ()
   (use-package fsharp-mode))
-
-(defun setup-geiser ()
-  (use-package geiser))
 
 (defun setup-basic-mode ()
   (use-package basic-mode
