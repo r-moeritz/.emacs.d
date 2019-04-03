@@ -20,7 +20,8 @@
    'setup-alect-themes
    'setup-rjsx-mode
    'setup-fsharp-mode
-   'setup-basic-mode)
+   'setup-basic-mode
+   'setup-rust-mode)
   "List of functions to configure package.el packages.")
 
 (defun setup-rjsx-mode ()
@@ -132,6 +133,9 @@
     :config
     (setq basic-auto-number 10
           basic-line-number-cols 5)))
+
+(defun setup-rust-mode ()
+  (use-package rust-mode))
 
 (mapc 'funcall package-config-funcs)
 
