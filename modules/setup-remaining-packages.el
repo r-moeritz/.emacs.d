@@ -21,7 +21,8 @@
    'setup-rjsx-mode
    'setup-fsharp-mode
    'setup-basic-mode
-   'setup-rust-mode)
+   'setup-rust-mode
+   'setup-intero)
   "List of functions to configure package.el packages.")
 
 (defun setup-rjsx-mode ()
@@ -136,6 +137,11 @@
 
 (defun setup-rust-mode ()
   (use-package rust-mode))
+
+(defun setup-intero ()
+  (use-package intero
+    :init
+    (add-hook 'haskell-mode-hook 'intero-mode)))
 
 (mapc 'funcall package-config-funcs)
 

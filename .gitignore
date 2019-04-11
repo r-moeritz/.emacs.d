@@ -12,3 +12,4 @@ projectile.cache
 cedet-projects.el
 rust-playground
 elpa
+transient
