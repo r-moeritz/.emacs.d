@@ -8,3 +8,4 @@
 (require 'setup-cedet)
 (require 'setup-helm)
 (require 'setup-remaining-packages)
+(put 'downcase-region 'disabled nil)

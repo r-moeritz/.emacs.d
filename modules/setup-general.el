@@ -72,7 +72,6 @@
   (put 'upcase-region 'disabled nil)                        ;; enable upcase-region
   (setq-default fill-column 79)                             ;; fill at col 79
   (savehist-mode 1)                                         ;; minibuffer history
-  (cua-mode t)                                              ;; de-facto standard copy 'n paste keys
   (setq cua-auto-tabify-rectangles nil)                     ;; don't tabify after recangles
   (transient-mark-mode 1)                                   ;; no region when it is not highlighted
   (setq make-backup-files nil)                              ;; stop creating backup~ files

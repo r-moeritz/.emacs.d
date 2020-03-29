@@ -22,7 +22,8 @@
    'setup-fsharp-mode
    'setup-basic-mode
    'setup-rust-mode
-   'setup-intero)
+   'setup-intero
+   'setup-yaml-mode)
   "List of functions to configure package.el packages.")
 
 (defun setup-rjsx-mode ()
@@ -142,6 +143,11 @@
   (use-package intero
     :init
     (add-hook 'haskell-mode-hook 'intero-mode)))
+
+(defun setup-yaml-mode ()
+  (use-package yaml-mode
+    :init
+    (add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)$" . yaml-mode))))
 
 (mapc 'funcall package-config-funcs)
 
