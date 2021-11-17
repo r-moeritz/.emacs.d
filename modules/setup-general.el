@@ -70,6 +70,7 @@
   (put 'erase-buffer 'disabled nil)                         ;; enable erase-buffer
   (winner-mode 1)                                           ;; winner mode FTW
   (put 'upcase-region 'disabled nil)                        ;; enable upcase-region
+  (put 'downcase-region 'disabled nil)                      ;; enable downcase-region
   (setq-default fill-column 79)                             ;; fill at col 79
   (savehist-mode 1)                                         ;; minibuffer history
   (setq cua-auto-tabify-rectangles nil)                     ;; don't tabify after recangles

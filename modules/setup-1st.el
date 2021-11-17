@@ -11,7 +11,8 @@
 (package-initialize)
 
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
+
 (unless package-archive-contents
   (package-refresh-contents))
 

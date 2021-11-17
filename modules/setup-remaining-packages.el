@@ -19,10 +19,8 @@
    'setup-smartparens
    'setup-alect-themes
    'setup-rjsx-mode
-   'setup-fsharp-mode
    'setup-basic-mode
    'setup-rust-mode
-   'setup-intero
    'setup-yaml-mode)
   "List of functions to configure package.el packages.")
 
@@ -127,9 +125,6 @@
                (add-hook 'text-mode 'ws-butler-mode)
                (add-hook 'fundamental-mode 'ws-butler-mode)))
 
-(defun setup-fsharp-mode ()
-  (use-package fsharp-mode))
-
 (defun setup-basic-mode ()
   (use-package basic-mode
     :config
@@ -138,11 +133,6 @@
 
 (defun setup-rust-mode ()
   (use-package rust-mode))
-
-(defun setup-intero ()
-  (use-package intero
-    :init
-    (add-hook 'haskell-mode-hook 'intero-mode)))
 
 (defun setup-yaml-mode ()
   (use-package yaml-mode
