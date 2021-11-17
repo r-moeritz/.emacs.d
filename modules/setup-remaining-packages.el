@@ -13,8 +13,6 @@
    'setup-magit
    'setup-dtrt-indent
    'setup-ws-butler
-   'setup-company
-   'setup-srefactor
    'setup-projectile
    'setup-smartparens
    'setup-alect-themes
@@ -55,23 +53,6 @@
     :init
     (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
-
-(defun setup-srefactor ()
-  (use-package srefactor
-    :init
-    (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
-    (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
-    :bind (("M-RET o" . srefactor-lisp-one-line)
-           ("M-RET m" . srefactor-lisp-format-sexp)
-           ("M-RET d" . srefactor-lisp-format-defun)
-           ("M-RET b" . srefactor-lisp-format-buffer))))
-
-(defun setup-company ()
-  (use-package company
-    :bind ("S-SPC" . company-complete)
-    :init
-    (add-hook 'after-init-hook 'global-company-mode)
-    (setq company-backends (delete 'company-clang company-backends))))
 
 (defun setup-elpy ()
   (use-package elpy
