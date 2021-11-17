@@ -9,7 +9,6 @@
 (defvar vanilla-config-funcs
   (list
    'setup-server
-   'setup-lisp
    'setup-org-mode
    'setup-tramp
    'setup-nxml
@@ -23,12 +22,6 @@
   (require 'server)
   (unless (server-running-p)
     (server-start)))
-
-(defun setup-lisp ()
-  (let ((slime-helper (expand-file-name "~/quicklisp/slime-helper.el")))
-    (if (file-exists-p slime-helper)
-        (load slime-helper)))
-  (setq inferior-lisp-program "sbcl"))
 
 (defun setup-tramp ()
   "Configure tramp for SSH."

@@ -19,7 +19,8 @@
    'setup-rjsx-mode
    'setup-basic-mode
    'setup-rust-mode
-   'setup-yaml-mode)
+   'setup-yaml-mode
+   'setup-slime)
   "List of functions to configure package.el packages.")
 
 (defun setup-rjsx-mode ()
@@ -119,6 +120,11 @@
   (use-package yaml-mode
     :init
     (add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)$" . yaml-mode))))
+
+(defun setup-slime ()
+  (use-package slime
+    :config
+    (setq inferior-lisp-program  "sbcl")))
 
 (mapc 'funcall package-config-funcs)
 
