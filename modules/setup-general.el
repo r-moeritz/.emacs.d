@@ -30,11 +30,11 @@
 
 (defun setup-nxml ()
   (add-to-list 'auto-mode-alist
-               '("\\.\\(xaml\\|config\\)$" . nxml-mode) t))
+               '("\\.\\(xaml\\|config\\)$" . nxml-mode)))
 
 (defun setup-org-mode ()
   (add-to-list 'auto-mode-alist
-               '("\\.org$" . org-mode) t)
+               '("\\.org\\'" . org-mode))
   (setq org-log-done t
         org-src-fontify-natively t
         org-insert-mode-line-in-empty-file t

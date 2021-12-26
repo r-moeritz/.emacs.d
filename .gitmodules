@@ -1,0 +1,3 @@
+[submodule "modules/kickasm-mode"]
+	path = modules/kickasm-mode
+	url = https://github.com/mweidhagen/kickasm-mode
