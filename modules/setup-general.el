@@ -8,29 +8,11 @@
 
 (defvar vanilla-config-funcs
   (list
-   'setup-server
    'setup-org-mode
-   'setup-tramp
-   'setup-nxml
    'global-set-vanilla-keys
    'global-set-vanilla-preferences
    )
   "List of functions to configure a vanilla emacs.")
-
-(defun setup-server ()
-  "Start server."
-  (require 'server)
-  (unless (server-running-p)
-    (server-start)))
-
-(defun setup-tramp ()
-  "Configure tramp for SSH."
-  (setq tramp-default-method "plink")
-  (setq explicit-shell-file-name "/bin/bash"))
-
-(defun setup-nxml ()
-  (add-to-list 'auto-mode-alist
-               '("\\.\\(xaml\\|config\\)$" . nxml-mode)))
 
 (defun setup-org-mode ()
   (add-to-list 'auto-mode-alist

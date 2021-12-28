@@ -13,7 +13,6 @@
    'setup-magit
    'setup-dtrt-indent
    'setup-ws-butler
-   'setup-projectile
    'setup-smartparens
    'setup-alect-themes
    'setup-rjsx-mode
@@ -47,13 +46,6 @@
       (sp-local-pair "{" nil :post-handlers '(("||\n[i]" "RET")))
       (sp-local-pair "/*" "*/" :post-handlers '((" | " "SPC")
                                                 ("* ||\n[i]" "RET"))))))
-
-(defun setup-projectile ()
-  (use-package projectile
-    :config (projectile-mode +1)
-    :init
-    (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 
 (defun setup-elpy ()
   (use-package elpy
@@ -128,4 +120,4 @@
 
 (mapc 'funcall package-config-funcs)
 
-(provide 'setup-remaining-packages)
+(provide 'setup-packages)

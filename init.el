@@ -6,4 +6,4 @@
 (require 'setup-general)
 (require 'setup-local)
 (require 'setup-helm)
-(require 'setup-remaining-packages)
+(require 'setup-packages)
