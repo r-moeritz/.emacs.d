@@ -51,6 +51,7 @@
   (setq cua-auto-tabify-rectangles nil)                     ;; don't tabify after recangles
   (transient-mark-mode 1)                                   ;; no region when it is not highlighted
   (setq make-backup-files nil)                              ;; stop creating backup~ files
+  (setq ring-bell-function 'ignore)                         ;; turn off bell
   )
 
 (mapc 'funcall vanilla-config-funcs)
