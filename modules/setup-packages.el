@@ -6,7 +6,6 @@
   (list
    'setup-smex
    'setup-markdown-mode
-   'setup-web-mode
    'setup-elpy
    'setup-expand-region
    'setup-ace-jump-mode
@@ -14,23 +13,22 @@
    'setup-dtrt-indent
    'setup-ws-butler
    'setup-smartparens
-   'setup-alect-themes
-   'setup-rjsx-mode
+   'setup-theme
    'setup-basic-mode
-   'setup-rust-mode
    'setup-yaml-mode
+   'setup-ace-window
    'setup-slime)
   "List of functions to configure package.el packages.")
 
-(defun setup-rjsx-mode ()
-  (use-package rjsx-mode
-    :init
-    (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))))
+(defun setup-ace-window ()
+  (use-package ace-window
+    :bind ("M-o" . ace-window)))
 
-(defun setup-alect-themes ()
-  (use-package alect-themes
+(defun setup-theme ()
+  (use-package immaterial-theme
+    :ensure t
     :config
-    (load-theme 'alect-dark t)))
+    (load-theme 'immaterial-dark t)))
 
 (defun setup-smartparens ()
   (use-package smartparens
@@ -51,9 +49,18 @@
   (use-package elpy
                :config
                (elpy-enable)
+               (when (require 'flycheck nil t)
+                 (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)))
+
                :init
                (setq elpy-default-minor-modes
-                     '(eldoc-mode highlight-indentation-mode yas-minor-mode auto-complete-mode))))
+                     '(eldoc-mode highlight-indentation-mode yas-minor-mode auto-complete-mode)))
+  (use-package flycheck
+    :init
+    (add-hook 'elpy-mode-hook #'flycheck-mode))
+  (use-package blacken
+    :init
+    (add-hook 'elpy-mode-hook #'blacken-mode)))
 
 (defun setup-markdown-mode ()
   (use-package markdown-mode
@@ -66,12 +73,6 @@
                :bind (("M-x" . smex)
                       ("M-X" . smex-major-mode-commands))
                :config (smex-initialize)))
-
-(defun setup-web-mode ()
-  (use-package web-mode
-               :init
-               (add-to-list 'auto-mode-alist
-                            '("\\.html?\\'" . web-mode))))
 
 (defun setup-expand-region ()
   (use-package expand-region
@@ -95,18 +96,15 @@
 (defun setup-ws-butler ()
   (use-package ws-butler
                :init
-               (add-hook 'prog-mode-hook 'ws-butler-mode)
-               (add-hook 'text-mode 'ws-butler-mode)
-               (add-hook 'fundamental-mode 'ws-butler-mode)))
+               (add-hook 'prog-mode-hook #'ws-butler-mode)
+               (add-hook 'text-mode #'ws-butler-mode)
+               (add-hook 'fundamental-mode #'ws-butler-mode)))
 
 (defun setup-basic-mode ()
   (use-package basic-mode
     :config
     (setq basic-auto-number 10
           basic-line-number-cols 5)))
-
-(defun setup-rust-mode ()
-  (use-package rust-mode))
 
 (defun setup-yaml-mode ()
   (use-package yaml-mode

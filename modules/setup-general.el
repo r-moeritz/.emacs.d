@@ -8,28 +8,14 @@
 
 (defvar vanilla-config-funcs
   (list
-   'setup-org-mode
    'global-set-vanilla-keys
    'global-set-vanilla-preferences
    )
   "List of functions to configure a vanilla emacs.")
 
-(defun setup-org-mode ()
-  (add-to-list 'auto-mode-alist
-               '("\\.org\\'" . org-mode))
-  (setq org-log-done t
-        org-src-fontify-natively t
-        org-insert-mode-line-in-empty-file t
-        org-pretty-entities t)
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (local-set-key (kbd "\C-cl") 'org-store-link)
-              (local-set-key (kbd "\C-ca") 'org-agenda))))
-
 (defun global-set-vanilla-keys ()
   "Set global keyboard shortcuts that work in vanilla Emacs."
-  (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-  (global-set-key (kbd "C-M-z") 'multi-occur-in-this-mode))
+  (global-set-key (kbd "C-;") 'comment-or-uncomment-region))
 
 (defun global-set-vanilla-preferences ()
   "A potpourri of preferences that work in vanilla emacs. Set globally."
@@ -52,6 +38,7 @@
   (transient-mark-mode 1)                                   ;; no region when it is not highlighted
   (setq make-backup-files nil)                              ;; stop creating backup~ files
   (setq ring-bell-function 'ignore)                         ;; turn off bell
+  (global-linum-mode t)                                     ;; enable line numbers globally
   )
 
 (mapc 'funcall vanilla-config-funcs)
