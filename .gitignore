@@ -7,3 +7,7 @@ elpa
 transient
 recentf
 elpy
+auto-save-list
+eshell
+semanticdb
+server
