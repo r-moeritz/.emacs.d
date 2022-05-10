@@ -3,13 +3,7 @@
 .#*
 ac-comphist.dat
 history
-smex-items
-tramp
-ede-projects.el
-srecode-map.el
-projectile-bookmarks.eld
-projectile.cache
-cedet-projects.el
-rust-playground
 elpa
 transient
+recentf
+elpy

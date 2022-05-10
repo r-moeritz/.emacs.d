@@ -4,9 +4,10 @@
 
 (defvar package-config-funcs
   (list
-   'setup-smex
+   'setup-ivy
    'setup-markdown-mode
    'setup-elpy
+   'setup-numpydoc
    'setup-expand-region
    'setup-ace-jump-mode
    'setup-magit
@@ -19,6 +20,12 @@
    'setup-ace-window
    'setup-slime)
   "List of functions to configure package.el packages.")
+
+(defun setup-numpydoc ()
+  (use-package numpydoc
+    :ensure t
+    :bind (:map elpy-mode-map
+                ("C-c n" . numpydoc-generate))))
 
 (defun setup-ace-window ()
   (use-package ace-window
@@ -68,11 +75,20 @@
                (add-to-list 'auto-mode-alist
                             '("\\.\\(md\\|markdown\\)$" . markdown-mode) t)))
 
-(defun setup-smex ()
-  (use-package smex
-               :bind (("M-x" . smex)
-                      ("M-X" . smex-major-mode-commands))
-               :config (smex-initialize)))
+(defun setup-ivy ()
+  (use-package ivy
+    :config
+    (ivy-mode 1)
+    :init
+    (setq ivy-use-virtual-buffers t)
+    (setq enable-recursive-minibuffers t)
+    (setq ivy-count-format "(%d/%d) "))
+  (use-package counsel
+    :config
+    (counsel-mode 1))
+  (use-package swiper
+    :bind
+    ("C-s" . swiper)))
 
 (defun setup-expand-region ()
   (use-package expand-region
