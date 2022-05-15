@@ -18,8 +18,13 @@
    'setup-basic-mode
    'setup-yaml-mode
    'setup-ace-window
+   'setup-ffip
    'setup-slime)
   "List of functions to configure package.el packages.")
+
+(defun setup-ffip ()
+  (use-package find-file-in-project
+    :ensure t))
 
 (defun setup-numpydoc ()
   (use-package numpydoc
@@ -35,7 +40,7 @@
   (use-package immaterial-theme
     :ensure t
     :config
-    (load-theme 'immaterial-dark t)))
+    (load-theme 'immaterial-light t)))
 
 (defun setup-smartparens ()
   (use-package smartparens
@@ -100,7 +105,9 @@
 
 (defun setup-magit ()
   (use-package magit
-               :bind ("C-x g" . magit-status)))
+    :bind ("C-x g" . magit-status)
+    :config
+    (setq magit-ediff-dwim-show-on-hunks t)))
 
 (defun setup-dtrt-indent ()
   (use-package dtrt-indent

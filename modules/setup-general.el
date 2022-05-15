@@ -38,6 +38,7 @@
   (setq make-backup-files nil)                              ;; stop creating backup~ files
   (setq ring-bell-function 'ignore)                         ;; turn off bell
   (global-linum-mode t)                                     ;; enable line numbers globally
+  (setq ediff-split-window-function 'split-window-horizontally) ;; split windows vertically in ediff
   )
 
 (mapc 'funcall vanilla-config-funcs)

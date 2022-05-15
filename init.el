@@ -5,5 +5,4 @@
 (require 'setup-1st)
 (require 'setup-general)
 (require 'setup-local)
-(require 'setup-helm)
 (require 'setup-packages)
