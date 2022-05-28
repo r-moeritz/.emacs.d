@@ -19,8 +19,18 @@
    'setup-yaml-mode
    'setup-ace-window
    'setup-ffip
+   'setup-lsp-mode
    'setup-slime)
   "List of functions to configure package.el packages.")
+
+(defun setup-lsp-mode ()
+  (use-package csharp-mode
+    :ensure t)
+  (use-package lsp-mode
+    :init
+    (add-hook 'csharp-mode-hook #'lsp)
+    :config
+    (setq lsp-csharp-server-path "~/Programs/omnisharp/start")))
 
 (defun setup-ffip ()
   (use-package find-file-in-project
@@ -40,7 +50,7 @@
   (use-package immaterial-theme
     :ensure t
     :config
-    (load-theme 'immaterial-light t)))
+    (load-theme 'immaterial-dark t)))
 
 (defun setup-smartparens ()
   (use-package smartparens
@@ -105,9 +115,7 @@
 
 (defun setup-magit ()
   (use-package magit
-    :bind ("C-x g" . magit-status)
-    :config
-    (setq magit-ediff-dwim-show-on-hunks t)))
+    :bind ("C-x g" . magit-status)))
 
 (defun setup-dtrt-indent ()
   (use-package dtrt-indent
